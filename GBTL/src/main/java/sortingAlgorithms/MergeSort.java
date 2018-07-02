@@ -2,23 +2,27 @@ package sortingAlgorithms;
 
 public class MergeSort 
 {
-	public static void Mergesort(int[] array, int left, int right, int arraySize)
+	public static void mergeSort(int[] array)
+	{
+		sort(array, 0, array.length-1);
+	}
+	
+	private static void sort(int[] array, int left, int right)
 	{
 		if(left < right)
 		{
 			int middle = (left + right) / 2;
 			
-			Mergesort(array, left, middle, arraySize);
-			Mergesort(array, middle+1, right, arraySize);
+			sort(array, left, middle);
+			sort(array, middle+1, right);
 			
-			merge(array, left, middle, right, arraySize);
-		}
-		
+			merge(array, left, middle, right);
+		}		
 	}
 	
-	public static void merge(int[] array, int left, int middle, int right, int arraySize)
+	private static void merge(int[] array, int left, int middle, int right)
 	{
-		int []mergedArray = new int[arraySize];
+		int[] mergedArray = new int[array.length];
 		
 		int left1 = left;
 		int right1 = middle;

@@ -2,23 +2,23 @@ package sortingAlgorithms;
 
 public class InsertSort 
 {
-	public static int[] Insertsort(int[] array, int size)
+	public static int[] insertionSort(int[] array)
 	{
-		int[] newArray = new int[size];
+		int[] newArray = new int[array.length];
 		newArray[0] = array[0];
 		
 		int newArraySize = 1;
 		
-		for(int i = 1; i < size; i++)
+		for(int i = 1; i < array.length; i++)
 		{
 			newArray[newArraySize] = array[i];
 			
 			for(int j = newArraySize - 1; j >= 0; j--)
-			{
-				
-				if(newArray[j+1] < newArray[j])
+			{			
+				int k = j+1;
+				if(newArray[k] < newArray[j])
 				{
-					swap(newArray, j, j+1);
+					swap(newArray, j, k);
 				}
 				else
 				{
@@ -39,6 +39,5 @@ public class InsertSort
 		array[i] = array[j];
 		array[j] = tmp;
 	}
-	
-	
+		
 }

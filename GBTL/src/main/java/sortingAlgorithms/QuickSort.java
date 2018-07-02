@@ -2,7 +2,12 @@ package sortingAlgorithms;
 
 public class QuickSort 
 {
-	public static void Quicksort(int[] array, int left, int right)
+	public static void quickSort(int[] array)
+	{
+		sort(array, 0, array.length-1);
+	}
+	
+	private static void sort(int[] array, int left, int right)
 	{
 		if(left < right)
 		{
@@ -21,8 +26,8 @@ public class QuickSort
 			//we move pivot as many places as there were smaller values from it
 			swap(array, left, pivotIndex);
 			
-			Quicksort(array, left, pivotIndex-1);
-			Quicksort(array, pivotIndex+1, right);
+			sort(array, left, pivotIndex-1);
+			sort(array, pivotIndex+1, right);
 		}	
 	}
 	
