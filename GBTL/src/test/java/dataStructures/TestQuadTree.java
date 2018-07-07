@@ -14,7 +14,7 @@ public class TestQuadTree
 	@Test
 	public void testAddAndContains()
 	{
-		QuadTree<String> tree = new QuadTree<>(2, 100, 100);
+		QuadTree<String> tree = new QuadTree<>(2, 5, 100, 100);
 		tree.add("ence", 1, 1);
 		tree.add("pence", -1, 1);
 		tree.add("w", 1, -1);
@@ -36,7 +36,7 @@ public class TestQuadTree
 		assertFalse(tree.contains("NON_EXISTING_ELEMENT", 15, -70));
 		
 		final int entries = 10000;
-		QuadTree<Integer> tree2 = new QuadTree<>(10, 100, 100);
+		QuadTree<Integer> tree2 = new QuadTree<>(10, 5, 100, 100);
 
 		List<Integer> values = new ArrayList<>(entries);
 		Random random = new Random();
@@ -48,7 +48,7 @@ public class TestQuadTree
 			tree2.add(value, x, y);
 			values.add(value);
 		}
-
+		
 		for(int i = 0; i < entries; i++)
 		{
 			Integer value = values.get(i);

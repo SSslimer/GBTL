@@ -1,6 +1,8 @@
 package sortingAlgorithms;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 import java.util.Random;
@@ -35,6 +37,24 @@ public class TestSortingAlgorithms
 		{
 			assertEquals(unsortedArray[i], expectedArray[i]);
 		}
+		
+		//////////////////////////////////////////////////
+		
+		double[] array = new double[500];		
+		for(int i = array.length-1; i >= 0; i--)
+		{
+			array[i] = random.nextDouble();
+		}
+		double[] array2 = array.clone();
+		
+		BubbleSort.bubbleSort(array);
+		Arrays.sort(array2);
+		
+		for(int i = array.length-1; i >= 0; i--)
+		{
+			assertTrue(array[i] == array2[i]);
+		}
+		
 	}
 
 	@Test

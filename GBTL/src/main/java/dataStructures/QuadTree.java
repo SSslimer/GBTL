@@ -8,35 +8,38 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 public class QuadTree<E>
 {
 	private final int cellCapacity;
+	private final int maxDepth;
 	private final float minX, maxX, minY, maxY;
 	
-	private QuadTreeCell<E> root;
+	private QuadTreeCell root;
 	
-	public QuadTree(int cellCapacity, float rangeX, float rangeY)
+	public QuadTree(int cellCapacity, int maxDepth, float rangeX, float rangeY)
 	{
 		this.cellCapacity= cellCapacity;
+		this.maxDepth = maxDepth;
 		this.minX = -rangeX;
 		this.maxX = rangeX;
 		this.minY = -rangeY;
 		this.maxY = rangeY;	
-		root  = new QuadTreeCell<E>(0, 0, rangeX, rangeY);
+		root  = new QuadTreeCell(0, 0, rangeX, rangeY);
 	}
 	
-	public QuadTree(int cellCapacity, float minX, float maxX, float minY, float maxY)
+	public QuadTree(int cellCapacity, int maxDepth, float minX, float maxX, float minY, float maxY)
 	{
 		this.cellCapacity= cellCapacity;
+		this.maxDepth = maxDepth;
 		this.minX = minX;
 		this.maxX = maxX;
 		this.minY = minY;
 		this.maxY = maxY;
-		root  = new QuadTreeCell<E>((maxX-minX)/2, (maxY-minY)/2, maxX-minX, maxY-minY);
+		root  = new QuadTreeCell((maxX-minX)/2, (maxY-minY)/2, maxX-minX, maxY-minY);
 	}
 	
-	private class QuadTreeCell<E>
+	private class QuadTreeCell
 	{
 		private final float centerX, centerY, rangeX, rangeY;
-		private List<QuadtreeElement<E>> elements = new ArrayList<>(cellCapacity);
-		private QuadTreeCell<E> upperLeft, upperRight, bottomLeft, bottomRight;
+		private List<QuadTreeElement> elements = new ArrayList<>(cellCapacity);
+		private QuadTreeCell upperLeft, upperRight, bottomLeft, bottomRight;
 		
 		public QuadTreeCell(float centerX, float centerY, float rangeX, float rangeY)
 		{
@@ -47,12 +50,12 @@ public class QuadTree<E>
 		}
 	}
 	
-	private class QuadtreeElement<E>
+	private class QuadTreeElement
 	{
 		private final E value;
 		private final float x, y;
 		
-		public QuadtreeElement(E value, float x, float y)
+		public QuadTreeElement(E value, float x, float y)
 		{
 			this.value = value;
 			this.x = x;
@@ -71,7 +74,7 @@ public class QuadTree<E>
 	        if(this == obj) return true;
 	        if(obj == null || getClass() != obj.getClass()) return false;
 	        
-	        QuadtreeElement<E> element = (QuadtreeElement<E>) obj;
+	        QuadTreeElement element = (QuadTreeElement) obj;
 	        return new EqualsBuilder()
 	        		.append(value, element.value)
 	        		.append(x, element.x)
@@ -84,7 +87,8 @@ public class QuadTree<E>
 	{
 		if(posX < minX || posX > maxX || posY < minY || posY > maxY) return false;
 		
-		QuadTreeCell<E> currentCell = root;
+		QuadTreeCell currentCell = root;
+		int depth = 1;
 		
 		while(true)
 		{
@@ -98,9 +102,11 @@ public class QuadTree<E>
 			{
 				currentCell = (posY >= currentCell.centerY ? currentCell.upperLeft : currentCell.bottomLeft);
 			}
+			
+			depth++;
 		}
 		
-		if(currentCell.elements.size() == cellCapacity)
+		if(currentCell.elements.size() == cellCapacity && depth != maxDepth)
 		{
 			divide(currentCell);
 			
@@ -114,11 +120,11 @@ public class QuadTree<E>
 			}
 		}
 
-		currentCell.elements.add(new QuadtreeElement<E>(valueToAdd, posX, posY));
+		currentCell.elements.add(new QuadTreeElement(valueToAdd, posX, posY));
 		return true;
 	}
 
-	private void divide(QuadTreeCell<E> cellToDivide)
+	private void divide(QuadTreeCell cellToDivide)
 	{
 		float halfRangeX = cellToDivide.rangeX/2;
 		float halfRangeY = cellToDivide.rangeY/2;
@@ -127,12 +133,12 @@ public class QuadTree<E>
 		float upperCenterY = cellToDivide.centerY+halfRangeY;
 		float bottomCenterY = cellToDivide.centerY-halfRangeY;
 		
-		cellToDivide.upperLeft = new QuadTreeCell<E>(leftCenterX, upperCenterY, halfRangeX, halfRangeY);
-		cellToDivide.upperRight = new QuadTreeCell<E>(rightCenterX, upperCenterY, halfRangeX, halfRangeY);
-		cellToDivide.bottomLeft = new QuadTreeCell<E>(leftCenterX, bottomCenterY, halfRangeX, halfRangeY);
-		cellToDivide.bottomRight = new QuadTreeCell<E>(rightCenterX, bottomCenterY, halfRangeX, halfRangeY);
+		cellToDivide.upperLeft = new QuadTreeCell(leftCenterX, upperCenterY, halfRangeX, halfRangeY);
+		cellToDivide.upperRight = new QuadTreeCell(rightCenterX, upperCenterY, halfRangeX, halfRangeY);
+		cellToDivide.bottomLeft = new QuadTreeCell(leftCenterX, bottomCenterY, halfRangeX, halfRangeY);
+		cellToDivide.bottomRight = new QuadTreeCell(rightCenterX, bottomCenterY, halfRangeX, halfRangeY);
 		
-		for(QuadtreeElement<E> element : cellToDivide.elements)
+		for(QuadTreeElement element : cellToDivide.elements)
 		{
 			if(element.x >= cellToDivide.centerX)
 			{
@@ -149,7 +155,7 @@ public class QuadTree<E>
 		cellToDivide.elements = null;
 	}
 	
-	private String getStringRepresentation(QuadTreeCell<E> cell, int depth)
+	private String getStringRepresentation(QuadTreeCell cell, int depth)
 	{
 		if(isEmptyLeaf(cell)) return "";
 		
@@ -175,7 +181,7 @@ public class QuadTree<E>
 		return buffer.toString();
 	}
 	
-	private boolean isEmptyLeaf(QuadTreeCell<E> cell)
+	private boolean isEmptyLeaf(QuadTreeCell cell)
 	{
 		return (cell.bottomLeft == null && cell.elements.isEmpty());
 	}
@@ -185,11 +191,11 @@ public class QuadTree<E>
 		return contains(root, element);	
 	}
 	
-	private boolean contains(QuadTreeCell<E> cell, E element)
+	private boolean contains(QuadTreeCell cell, E element)
 	{
 		if(cell.bottomLeft == null)
 		{
-			for(QuadtreeElement<E> e : cell.elements)
+			for(QuadTreeElement e : cell.elements)
 			{
 				if(element.equals(e.value)) return true;
 			}
@@ -202,7 +208,7 @@ public class QuadTree<E>
 	
 	public boolean contains(E element, float posX, float posY)
 	{
-		QuadTreeCell<E> currentCell = root;
+		QuadTreeCell currentCell = root;
 		
 		while(true)
 		{
@@ -218,7 +224,7 @@ public class QuadTree<E>
 			}
 		}
 		
-		for(QuadtreeElement<E> e : currentCell.elements)
+		for(QuadTreeElement e : currentCell.elements)
 		{
 			if(element.equals(e.value)) return true;
 		}
@@ -236,7 +242,7 @@ public class QuadTree<E>
 		buffer.append("Max x = " + maxX + "\n");
 		buffer.append("Min y = " + minY + "\n");
 		buffer.append("Max y = " + maxY + "\n\n");
-		buffer.append(getStringRepresentation(root, 0));
+		buffer.append(getStringRepresentation(root, 1));
 		
 		return buffer.toString();
 	}

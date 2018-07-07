@@ -1,6 +1,7 @@
 package sortingAlgorithms;
 
 import java.lang.reflect.Array;
+import static sortingAlgorithms.SortUtils.*;
 
 public class InsertSort 
 {
@@ -29,8 +30,7 @@ public class InsertSort
 				else
 				{
 					break;
-				}
-				
+				}			
 			}
 			
 			newArraySize++;
@@ -39,20 +39,9 @@ public class InsertSort
 		for(int i = 0; i < array.length; i++)
 		{
 			array[i] = newArray[i];
-		}
-		
-	}
-	
-	public static <T> void swap(T[] array, int i, int j)
-	{
-		T tmp = array[i];
-		array[i] = array[j];
-		array[j] = tmp;
+		}		
 	}	
 }
-
-
-
 
 /*
 public class InsertSort 
@@ -86,13 +75,5 @@ public class InsertSort
 		}
 		
 		return newArray;
-	}
-	
-	public static void swap(int[] array, int i, int j)
-	{
-		int tmp = array[i];
-		array[i] = array[j];
-		array[j] = tmp;
-	}
-		
+	}	
 } */

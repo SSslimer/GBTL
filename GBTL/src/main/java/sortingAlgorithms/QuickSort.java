@@ -1,5 +1,7 @@
 package sortingAlgorithms;
 
+import static sortingAlgorithms.SortUtils.*;
+
 public class QuickSort 
 {
 	public static<T extends Comparable<T>> void quickSort(T[] array)
@@ -30,12 +32,5 @@ public class QuickSort
 			sort(array, left, pivotIndex-1);
 			sort(array, pivotIndex+1, right);
 		}	
-	}
-	
-	public static <T> void swap(T[] array, int i, int j)
-	{
-		T tmp = array[i];
-		array[i] = array[j];
-		array[j] = tmp;
 	}
 }
