@@ -2,21 +2,22 @@ package sortingAlgorithms;
 
 public class QuickSort 
 {
-	public static void quickSort(int[] array)
+	public static<T extends Comparable<T>> void quickSort(T[] array)
 	{
 		sort(array, 0, array.length-1);
 	}
 	
-	private static void sort(int[] array, int left, int right)
+	private static<T extends Comparable<T>> void sort(T[] array, int left, int right)
 	{
 		if(left < right)
 		{
-			int pivot = array[left];
+			T pivot = array[left];
 			int pivotIndex = left;
 			
 			for(int i = left; i <= right; i++)
 			{
-				if(array[i] < pivot)
+				//if(array[i] < pivot)
+				if(pivot.compareTo(array[i]) > 0)
 				{
 					pivotIndex++;
 					swap(array, pivotIndex, i);
@@ -31,9 +32,9 @@ public class QuickSort
 		}	
 	}
 	
-	public static void swap(int[] array, int i, int j)
+	public static <T> void swap(T[] array, int i, int j)
 	{
-		int tmp = array[i];
+		T tmp = array[i];
 		array[i] = array[j];
 		array[j] = tmp;
 	}

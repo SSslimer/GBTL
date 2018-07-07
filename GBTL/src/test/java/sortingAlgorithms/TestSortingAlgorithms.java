@@ -11,12 +11,12 @@ public class TestSortingAlgorithms
 	private static final int ARRAY_SIZE = 15;
 	private static Random random = new Random();
 	
-	private static int[] unsortedArray = {8, 4, 5, 8, 1, 3, 15, -5, 7, 0, 0, 13, 11, 15, 1};
-	private static int[] expectedArray = {-5, 0, 0, 1, 1, 3, 4, 5, 7, 8, 8, 11, 13, 15, 15};
+	private static Integer[] unsortedArray = {8, 4, 5, 8, 1, 3, 15, -5, 7, 0, 0, 13, 11, 15, 1};
+	private static Integer[] expectedArray = {-5, 0, 0, 1, 1, 3, 4, 5, 7, 8, 8, 11, 13, 15, 15};
 	
-	public int[] createRandomArray(int arraySize)
+	public Integer[] createRandomArray(int arraySize)
 	{	
-		int[] array = new int[arraySize];
+		Integer[] array = new Integer[arraySize];
 		
 		for(int i = 0; i < arraySize; i++)
 		{
@@ -36,7 +36,7 @@ public class TestSortingAlgorithms
 			assertEquals(unsortedArray[i], expectedArray[i]);
 		}
 	}
-	
+
 	@Test
 	public void testQuickSort()
 	{
@@ -45,17 +45,17 @@ public class TestSortingAlgorithms
 		for(int i = 0; i < ARRAY_SIZE; i++)
 		{
 			assertEquals(unsortedArray[i], expectedArray[i]);
-		}
+		} 
 	}
 	
 	@Test
 	public void testInsertSort()
 	{
-		int[] sortedArray = InsertSort.insertionSort(unsortedArray);
+		InsertSort.insertionSort(unsortedArray);
 		
 		for(int i = 0; i < ARRAY_SIZE; i++)
 		{
-			assertEquals(sortedArray[i], expectedArray[i]);
+			assertEquals(unsortedArray[i], expectedArray[i]);
 		}
 	}
 	
@@ -64,8 +64,8 @@ public class TestSortingAlgorithms
 	{
 		int size = random.nextInt(15) + 5;//size from 5 to 20
 		
-		int[] array = createRandomArray(size); 
-		int[] array2 = new int[size];
+		Integer[] array = createRandomArray(size); 
+		Integer[] array2 = new Integer[size];
 		
 		for(int i = 0; i < size; i++)
 		{

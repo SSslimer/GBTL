@@ -1,13 +1,15 @@
 package sortingAlgorithms;
 
+import java.lang.reflect.Array;
+
 public class MergeSort 
 {
-	public static void mergeSort(int[] array)
+	public static<T extends Comparable<T>> void mergeSort(T[] array)
 	{
 		sort(array, 0, array.length-1);
 	}
 	
-	private static void sort(int[] array, int left, int right)
+	private static<T extends Comparable<T>> void sort(T[] array, int left, int right)
 	{
 		if(left < right)
 		{
@@ -20,9 +22,10 @@ public class MergeSort
 		}		
 	}
 	
-	private static void merge(int[] array, int left, int middle, int right)
-	{
-		int[] mergedArray = new int[array.length];
+	private static<T extends Comparable<T>> void merge(T[] array, int left, int middle, int right)
+	{		
+		@SuppressWarnings("unchecked")
+		T[] mergedArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
 		
 		int left1 = left;
 		int right1 = middle;
@@ -47,8 +50,8 @@ public class MergeSort
 				mergedArrayIndex++;
 				continue;
 			}
-			
-			if(array[left1] < array[left2])
+
+			if(array[left2].compareTo(array[left1]) > 0)
 			{
 				mergedArray[mergedArrayIndex] = array[left1];
 				left1++;
