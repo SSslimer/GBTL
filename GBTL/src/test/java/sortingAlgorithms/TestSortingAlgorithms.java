@@ -100,4 +100,15 @@ public class TestSortingAlgorithms
 			assertEquals(array[i], array2[i]);
 		}
 	}
+	
+	@Test
+	public void testHeapSort()
+	{
+		HeapSort.heapSort(unsortedArray);
+		
+		for(int i = 0; i < ARRAY_SIZE; i++)
+		{
+			assertEquals(unsortedArray[i], expectedArray[i]);
+		}
+	}
 }
