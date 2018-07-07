@@ -110,5 +110,23 @@ public class TestSortingAlgorithms
 		{
 			assertEquals(unsortedArray[i], expectedArray[i]);
 		}
+		
+		int size = random.nextInt(15) + 500;//size from 5 to 20
+		
+		Integer[] array = createRandomArray(size); 
+		Integer[] array2 = new Integer[size];
+		
+		for(int i = 0; i < size; i++)
+		{
+			array2[i] = array[i];
+		}
+		
+		Arrays.sort(array2);
+		HeapSort.heapSort(array);
+		
+		for(int i = 0; i < size; i++)
+		{
+			assertEquals(array[i], array2[i]);
+		}
 	}
 }
