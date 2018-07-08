@@ -4,16 +4,14 @@ public class CountingSort
 {
 	public static void countingSort(int[] array)
 	{
-		int[] minMax = new int[2];
-		minMax[0] = array[0];
-		minMax[1] = array[0];
-			
+		int[] minMax = {array[0], array[0]};
+	
 		findBoundaries(array, minMax);
 		
 		int min = minMax[0];
 		int max = minMax[1];
 		
-		int[] countingArray = new int[(max+1) - min];
+		int[] countingArray = new int[max + 1 - min];
 		
 		for(int i = 0; i < array.length; i++)
 		{
@@ -32,8 +30,7 @@ public class CountingSort
 				index++;
 				counter--;
 			}
-		}
-		
+		}		
 	}
 	
 	private static void findBoundaries(int[] array, int[] minMax)
@@ -47,9 +44,7 @@ public class CountingSort
 	
 	public static void countingSort(short[] array)
 	{
-		short[] minMax = new short[2];
-		minMax[0] = array[0];
-		minMax[1] = array[0];
+		short[] minMax = {array[0], array[0]};
 			
 		findBoundaries(array, minMax);
 		
@@ -75,8 +70,7 @@ public class CountingSort
 				index++;
 				counter--;
 			}
-		}
-		
+		}		
 	}
 	
 	private static void findBoundaries(short[] array, short[] minMax)
@@ -90,9 +84,7 @@ public class CountingSort
 	
 	public static void countingSort(char[] array)
 	{
-		char[] minMax = new char[2];
-		minMax[0] = array[0];
-		minMax[1] = array[0];
+		char[] minMax = {array[0], array[0]};
 			
 		findBoundaries(array, minMax);
 		
@@ -118,8 +110,7 @@ public class CountingSort
 				index++;
 				counter--;
 			}
-		}
-		
+		}		
 	}
 	
 	private static void findBoundaries(char[] array, char[] minMax)
