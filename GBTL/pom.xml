@@ -5,6 +5,7 @@
 	<artifactId>GBTL</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Go Back To Learning</name>
+	<description>Go Back To Learning has an educational purpose. We add what we want to practice.</description>
 	
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
@@ -24,7 +25,49 @@
 	  		<artifactId>commons-lang3</artifactId>
 	  		<version>3.7</version>
 	 	</dependency>
+	 	<dependency>
+	  		<groupId>org.apache.commons</groupId>
+	  		<artifactId>commons-math3</artifactId>
+	  		<version>3.6.1</version>
+	 	</dependency>
+	 	<dependency>
+			<groupId>org.openjdk.jmh</groupId>
+			<artifactId>jmh-core</artifactId>
+			<version>1.19</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openjdk.jmh</groupId>
+			<artifactId>jmh-generator-annprocess</artifactId>
+			<version>1.19</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 	
-	<description>Go Back To Learning has an educational purpose. We add what we want to practice.</description>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.7.0</version>
+				<configuration>
+					<compilerVersion>1.8</compilerVersion>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<configuration>
+					<executable>java</executable>
+					<arguments>
+						<argument>-classpath</argument>
+						<classpath />
+						<argument>benchmarks.BenchmarksRunner</argument>
+					</arguments>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

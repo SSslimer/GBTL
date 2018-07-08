@@ -1,7 +1,5 @@
 package sortingAlgorithms;
 
-import static sortingAlgorithms.SortUtils.swap;
-
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -16,7 +14,7 @@ public class BubbleSort
 			{
 				if(array[i].compareTo(array[j]) > 0)
 				{
-					swap(array, i, j);
+					SortUtils.swap(array, i, j);
 				}
 			}
 		}
@@ -30,7 +28,7 @@ public class BubbleSort
 			{
 				if(comp.compare(array[i], array[j]) > 0)
 				{
-					swap(array, i, j);
+					SortUtils.swap(array, i, j);
 				}
 			}
 		}
@@ -72,7 +70,7 @@ public class BubbleSort
 			{
 				if(array[i] > array[j])
 				{
-					swap(array, i, j);
+					SortUtils.swap(array, i, j);
 				}
 			}
 		}
@@ -86,7 +84,7 @@ public class BubbleSort
 			{
 				if(array[i] > array[j])
 				{
-					swap(array, i, j);
+					SortUtils.swap(array, i, j);
 				}
 			}
 		}
@@ -100,7 +98,7 @@ public class BubbleSort
 			{
 				if(array[i] > array[j])
 				{
-					swap(array, i, j);
+					SortUtils.swap(array, i, j);
 				}
 			}
 		}
@@ -114,7 +112,7 @@ public class BubbleSort
 			{
 				if(array[i] > array[j])
 				{
-					swap(array, i, j);
+					SortUtils.swap(array, i, j);
 				}
 			}
 		}
@@ -128,7 +126,7 @@ public class BubbleSort
 			{
 				if(array[i] > array[j])
 				{
-					swap(array, i, j);
+					SortUtils.swap(array, i, j);
 				}
 			}
 		}
@@ -142,7 +140,7 @@ public class BubbleSort
 			{
 				if(array[i] > array[j])
 				{
-					swap(array, i, j);
+					SortUtils.swap(array, i, j);
 				}
 			}
 		}

@@ -1,7 +1,5 @@
 package sortingAlgorithms;
 
-import static sortingAlgorithms.SortUtils.*;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Comparator;
@@ -25,12 +23,11 @@ public class QuickSort
 				if(pivot.compareTo(array[i]) > 0)
 				{
 					pivotIndex++;
-					swap(array, pivotIndex, i);
+					SortUtils.swap(array, pivotIndex, i);
 				}	
 			}
-			
-			//we move pivot as many places as there were smaller values from it
-			swap(array, left, pivotIndex);
+
+			SortUtils.swap(array, left, pivotIndex);
 			
 			sort(array, left, pivotIndex-1);
 			sort(array, pivotIndex+1, right);
@@ -54,12 +51,11 @@ public class QuickSort
 				if(comp.compare(pivot, array[i]) > 0)
 				{
 					pivotIndex++;
-					swap(array, pivotIndex, i);
+					SortUtils.swap(array, pivotIndex, i);
 				}	
 			}
-			
-			//we move pivot as many places as there were smaller values from it
-			swap(array, left, pivotIndex);
+
+			SortUtils.swap(array, left, pivotIndex);
 			
 			sort(array, left, pivotIndex-1, comp);
 			sort(array, pivotIndex+1, right, comp);
@@ -86,8 +82,7 @@ public class QuickSort
 					Collections.swap(list, pivotIndex, i);
 				}	
 			}
-			
-			//we move pivot as many places as there were smaller values from it
+
 			Collections.swap(list, left, pivotIndex);
 			
 			sort(list, left, pivotIndex-1);
@@ -115,8 +110,7 @@ public class QuickSort
 					Collections.swap(list, pivotIndex, i);
 				}	
 			}
-			
-			//we move pivot as many places as there were smaller values from it
+
 			Collections.swap(list, left, pivotIndex);
 			
 			sort(list, left, pivotIndex-1, comp);
@@ -141,12 +135,11 @@ public class QuickSort
 				if(pivot > array[i])
 				{
 					pivotIndex++;
-					swap(array, pivotIndex, i);
+					SortUtils.swap(array, pivotIndex, i);
 				}	
 			}
-			
-			//we move pivot as many places as there were smaller values from it
-			swap(array, left, pivotIndex);
+
+			SortUtils.swap(array, left, pivotIndex);
 			
 			sort(array, left, pivotIndex-1);
 			sort(array, pivotIndex+1, right);
@@ -170,12 +163,11 @@ public class QuickSort
 				if(pivot > array[i])
 				{
 					pivotIndex++;
-					swap(array, pivotIndex, i);
+					SortUtils.swap(array, pivotIndex, i);
 				}	
 			}
-			
-			//we move pivot as many places as there were smaller values from it
-			swap(array, left, pivotIndex);
+
+			SortUtils.swap(array, left, pivotIndex);
 			
 			sort(array, left, pivotIndex-1);
 			sort(array, pivotIndex+1, right);
@@ -199,12 +191,11 @@ public class QuickSort
 				if(pivot > array[i])
 				{
 					pivotIndex++;
-					swap(array, pivotIndex, i);
+					SortUtils.swap(array, pivotIndex, i);
 				}	
 			}
-			
-			//we move pivot as many places as there were smaller values from it
-			swap(array, left, pivotIndex);
+
+			SortUtils.swap(array, left, pivotIndex);
 			
 			sort(array, left, pivotIndex-1);
 			sort(array, pivotIndex+1, right);
@@ -228,12 +219,11 @@ public class QuickSort
 				if(pivot > array[i])
 				{
 					pivotIndex++;
-					swap(array, pivotIndex, i);
+					SortUtils.swap(array, pivotIndex, i);
 				}	
 			}
-			
-			//we move pivot as many places as there were smaller values from it
-			swap(array, left, pivotIndex);
+
+			SortUtils.swap(array, left, pivotIndex);
 			
 			sort(array, left, pivotIndex-1);
 			sort(array, pivotIndex+1, right);
@@ -257,12 +247,11 @@ public class QuickSort
 				if(pivot > array[i])
 				{
 					pivotIndex++;
-					swap(array, pivotIndex, i);
+					SortUtils.swap(array, pivotIndex, i);
 				}	
 			}
-			
-			//we move pivot as many places as there were smaller values from it
-			swap(array, left, pivotIndex);
+
+			SortUtils.swap(array, left, pivotIndex);
 			
 			sort(array, left, pivotIndex-1);
 			sort(array, pivotIndex+1, right);
@@ -286,12 +275,11 @@ public class QuickSort
 				if(pivot > array[i])
 				{
 					pivotIndex++;
-					swap(array, pivotIndex, i);
+					SortUtils.swap(array, pivotIndex, i);
 				}	
 			}
-			
-			//we move pivot as many places as there were smaller values from it
-			swap(array, left, pivotIndex);
+
+			SortUtils.swap(array, left, pivotIndex);
 			
 			sort(array, left, pivotIndex-1);
 			sort(array, pivotIndex+1, right);

@@ -6,19 +6,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static sortingAlgorithms.SortUtils.*;
-
-public class InsertSort 
+public class InsertionSort 
 {
 	public static<T extends Comparable<T>> void insertionSort(T[] array)
 	{	
-		@SuppressWarnings("unchecked")
 		T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
+		
 		newArray[0] = array[0];
 		
 		int newArraySize = 1;
 		
-		for(int i = 1; i < array.length; i++)
+		for(int i = 1; i < array.length; i++, newArraySize++)
 		{
 			newArray[newArraySize] = array[i];
 			
@@ -28,20 +26,12 @@ public class InsertSort
 				T x = newArray[j];
 				T y = newArray[k];
 
-				if(x.compareTo(y) > 0)
-				{
-					swap(newArray, j, k);
-				}
-				else
-				{
-					break;
-				}			
+				if(x.compareTo(y) > 0) SortUtils.swap(newArray, j, k);
+				else break;		
 			}
-			
-			newArraySize++;
 		}
 		
-		for(int i = 0; i < array.length; i++)
+		for(int i = array.length-1; i >= 0; i--)
 		{
 			array[i] = newArray[i];
 		}		
@@ -49,13 +39,12 @@ public class InsertSort
 	
 	public static<T> void insertionSort(T[] array, Comparator<T> comp)
 	{	
-		@SuppressWarnings("unchecked")
 		T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
 		newArray[0] = array[0];
 		
 		int newArraySize = 1;
 		
-		for(int i = 1; i < array.length; i++)
+		for(int i = 1; i < array.length; i++, newArraySize++)
 		{
 			newArray[newArraySize] = array[i];
 			
@@ -65,20 +54,12 @@ public class InsertSort
 				T x = newArray[j];
 				T y = newArray[k];
 
-				if(comp.compare(x, y) > 0)
-				{
-					swap(newArray, j, k);
-				}
-				else
-				{
-					break;
-				}			
+				if(comp.compare(x, y) > 0) SortUtils.swap(newArray, j, k);
+				else break;
 			}
-			
-			newArraySize++;
 		}
 		
-		for(int i = 0; i < array.length; i++)
+		for(int i = array.length-1; i >= 0; i--)
 		{
 			array[i] = newArray[i];
 		}		
@@ -91,7 +72,7 @@ public class InsertSort
 		
 		int newArraySize = 1;
 		
-		for(int i = 1; i < list.size(); i++)
+		for(int i = 1; i < list.size(); i++, newArraySize++)
 		{
 			newList.set(newArraySize, list.get(i));
 			
@@ -99,20 +80,12 @@ public class InsertSort
 			{			
 				int k = j+1;
 
-				if(newList.get(j).compareTo(newList.get(k)) > 0)
-				{
-					Collections.swap(newList, j, k);
-				}
-				else
-				{
-					break;
-				}			
+				if(newList.get(j).compareTo(newList.get(k)) > 0) Collections.swap(newList, j, k);
+				else break;		
 			}
-			
-			newArraySize++;
 		}
 		
-		for(int i = 0; i < list.size(); i++)
+		for(int i = list.size()-1; i >= 0; i--)
 		{
 			list.set(i, newList.get(i));
 		}		
@@ -125,7 +98,7 @@ public class InsertSort
 		
 		int newArraySize = 1;
 		
-		for(int i = 1; i < list.size(); i++)
+		for(int i = 1; i < list.size(); i++, newArraySize++)
 		{
 			newList.set(newArraySize, list.get(i));
 			
@@ -133,20 +106,12 @@ public class InsertSort
 			{			
 				int k = j+1;
 
-				if(comp.compare(newList.get(j), newList.get(k)) > 0)
-				{
-					Collections.swap(newList, j, k);
-				}
-				else
-				{
-					break;
-				}			
+				if(comp.compare(newList.get(j), newList.get(k)) > 0) Collections.swap(newList, j, k);
+				else break;		
 			}
-			
-			newArraySize++;
 		}
 		
-		for(int i = 0; i < list.size(); i++)
+		for(int i = list.size()-1; i >= 0; i--)
 		{
 			list.set(i, newList.get(i));
 		}		
@@ -159,7 +124,7 @@ public class InsertSort
 		
 		int newArraySize = 1;
 		
-		for(int i = 1; i < array.length; i++)
+		for(int i = 1; i < array.length; i++, newArraySize++)
 		{
 			newArray[newArraySize] = array[i];
 			
@@ -167,20 +132,12 @@ public class InsertSort
 			{			
 				int k = j+1;
 
-				if(newArray[j] > newArray[k])
-				{
-					swap(newArray, j, k);
-				}
-				else
-				{
-					break;
-				}			
+				if(newArray[j] > newArray[k]) SortUtils.swap(newArray, j, k);
+				else break;
 			}
-			
-			newArraySize++;
 		}
 		
-		for(int i = 0; i < array.length; i++)
+		for(int i = array.length-1; i >= 0; i--)
 		{
 			array[i] = newArray[i];
 		}		
@@ -193,7 +150,7 @@ public class InsertSort
 		
 		int newArraySize = 1;
 		
-		for(int i = 1; i < array.length; i++)
+		for(int i = 1; i < array.length; i++, newArraySize++)
 		{
 			newArray[newArraySize] = array[i];
 			
@@ -201,20 +158,12 @@ public class InsertSort
 			{			
 				int k = j+1;
 
-				if(newArray[j] > newArray[k])
-				{
-					swap(newArray, j, k);
-				}
-				else
-				{
-					break;
-				}			
+				if(newArray[j] > newArray[k]) SortUtils.swap(newArray, j, k);
+				else break;		
 			}
-			
-			newArraySize++;
 		}
 		
-		for(int i = 0; i < array.length; i++)
+		for(int i = array.length-1; i >= 0; i--)
 		{
 			array[i] = newArray[i];
 		}		
@@ -227,7 +176,7 @@ public class InsertSort
 		
 		int newArraySize = 1;
 		
-		for(int i = 1; i < array.length; i++)
+		for(int i = 1; i < array.length; i++, newArraySize++)
 		{
 			newArray[newArraySize] = array[i];
 			
@@ -235,20 +184,12 @@ public class InsertSort
 			{			
 				int k = j+1;
 
-				if(newArray[j] > newArray[k])
-				{
-					swap(newArray, j, k);
-				}
-				else
-				{
-					break;
-				}			
+				if(newArray[j] > newArray[k]) SortUtils.swap(newArray, j, k);
+				else break;			
 			}
-			
-			newArraySize++;
 		}
 		
-		for(int i = 0; i < array.length; i++)
+		for(int i = array.length; i >= 0; i--)
 		{
 			array[i] = newArray[i];
 		}		
@@ -261,7 +202,7 @@ public class InsertSort
 		
 		int newArraySize = 1;
 		
-		for(int i = 1; i < array.length; i++)
+		for(int i = 1; i < array.length; i++, newArraySize++)
 		{
 			newArray[newArraySize] = array[i];
 			
@@ -269,20 +210,12 @@ public class InsertSort
 			{			
 				int k = j+1;
 
-				if(newArray[j] > newArray[k])
-				{
-					swap(newArray, j, k);
-				}
-				else
-				{
-					break;
-				}			
+				if(newArray[j] > newArray[k]) SortUtils.swap(newArray, j, k);
+				else break;			
 			}
-			
-			newArraySize++;
 		}
 		
-		for(int i = 0; i < array.length; i++)
+		for(int i = array.length-1; i >= 0; i--)
 		{
 			array[i] = newArray[i];
 		}		
@@ -295,7 +228,7 @@ public class InsertSort
 		
 		int newArraySize = 1;
 		
-		for(int i = 1; i < array.length; i++)
+		for(int i = 1; i < array.length; i++, newArraySize++)
 		{
 			newArray[newArraySize] = array[i];
 			
@@ -303,20 +236,12 @@ public class InsertSort
 			{			
 				int k = j+1;
 
-				if(newArray[j] > newArray[k])
-				{
-					swap(newArray, j, k);
-				}
-				else
-				{
-					break;
-				}			
+				if(newArray[j] > newArray[k]) SortUtils.swap(newArray, j, k);
+				else break;			
 			}
-			
-			newArraySize++;
 		}
 		
-		for(int i = 0; i < array.length; i++)
+		for(int i = array.length-1; i >= 0; i--)
 		{
 			array[i] = newArray[i];
 		}		
@@ -329,7 +254,7 @@ public class InsertSort
 		
 		int newArraySize = 1;
 		
-		for(int i = 1; i < array.length; i++)
+		for(int i = 1; i < array.length; i++, newArraySize++)
 		{
 			newArray[newArraySize] = array[i];
 			
@@ -337,20 +262,12 @@ public class InsertSort
 			{			
 				int k = j+1;
 
-				if(newArray[j] > newArray[k])
-				{
-					swap(newArray, j, k);
-				}
-				else
-				{
-					break;
-				}			
+				if(newArray[j] > newArray[k]) SortUtils.swap(newArray, j, k);
+				else break;		
 			}
-			
-			newArraySize++;
 		}
 		
-		for(int i = 0; i < array.length; i++)
+		for(int i = array.length; i >= 0; i--)
 		{
 			array[i] = newArray[i];
 		}		

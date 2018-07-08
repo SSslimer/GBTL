@@ -3,10 +3,10 @@ package sortingAlgorithms;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
-
-import java.util.Random;
 import java.util.Arrays;
+import java.util.Random;
+
+import org.junit.Test;
 
 public class TestSortingAlgorithms 
 {
@@ -71,7 +71,7 @@ public class TestSortingAlgorithms
 	@Test
 	public void testInsertSort()
 	{
-		InsertSort.insertionSort(unsortedArray);
+		InsertionSort.insertionSort(unsortedArray);
 		
 		for(int i = 0; i < ARRAY_SIZE; i++)
 		{

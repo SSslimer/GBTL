@@ -10,9 +10,8 @@ public class HeapSort
 {
 	public static <T extends Comparable<T>> void heapSort(T[] array)
 	{
-		@SuppressWarnings("unchecked")
 		T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
-		
+
 		int size = array.length;
 		
 		for(int i = 0; i < array.length; i++, size--)
@@ -23,7 +22,7 @@ public class HeapSort
 			SortUtils.swap(array, 0, size-1);	
 		}
 		
-		for(int i = 0; i < array.length; i++)
+		for(int i = array.length-1; i >= 0 ; i--)
 		{
 			array[i] = newArray[i];
 		}
@@ -31,8 +30,7 @@ public class HeapSort
 	
 	private static <T extends Comparable<T>> void createHeap(T[] array, int size)
 	{
-		@SuppressWarnings("unchecked")
-		T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), size);
+		T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
 		
 		for(int i = 0; i < size; i++)
 		{
@@ -41,32 +39,18 @@ public class HeapSort
 			
 			while(j > 0)
 			{
-				int parentIndex;
-				
-				if(j%2 == 0)
-				{
-					parentIndex = (j - 2) / 2;
-				}
-				else
-				{
-					parentIndex = (j - 1) / 2;
-				}
+				int parentIndex = (j - (j%2 == 0 ? 2 : 1)) / 2;
 				
 				if(newArray[j].compareTo(newArray[parentIndex]) > 0)
 				{
 					SortUtils.swap(newArray, parentIndex, j);
 					j = parentIndex;
-					continue;
 				}
-				else
-				{
-					break;
-				}
-			}
-			
+				else break;
+			}		
 		}
 		
-		for(int i = 0; i < size; i++)
+		for(int i = size-1; i >= 0; i--)
 		{
 			array[i] = newArray[i];
 		}
@@ -74,7 +58,6 @@ public class HeapSort
 	
 	public static <T> void heapSort(T[] array, Comparator<T> comp)
 	{
-		@SuppressWarnings("unchecked")
 		T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
 		
 		int size = array.length;
@@ -87,7 +70,7 @@ public class HeapSort
 			SortUtils.swap(array, 0, size-1);	
 		}
 		
-		for(int i = 0; i < array.length; i++)
+		for(int i = array.length-1; i >= 0 ; i--)
 		{
 			array[i] = newArray[i];
 		}
@@ -95,8 +78,7 @@ public class HeapSort
 	
 	private static <T> void createHeap(T[] array, int size, Comparator<T> comp)
 	{
-		@SuppressWarnings("unchecked")
-		T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), size);
+		T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
 		
 		for(int i = 0; i < size; i++)
 		{
@@ -105,32 +87,18 @@ public class HeapSort
 			
 			while(j > 0)
 			{
-				int parentIndex;
-				
-				if(j%2 == 0)
-				{
-					parentIndex = (j - 2) / 2;
-				}
-				else
-				{
-					parentIndex = (j - 1) / 2;
-				}
+				int parentIndex = (j - (j%2 == 0 ? 2 : 1)) / 2;
 				
 				if(comp.compare(newArray[j], newArray[parentIndex]) > 0)
 				{
 					SortUtils.swap(newArray, parentIndex, j);
 					j = parentIndex;
-					continue;
 				}
-				else
-				{
-					break;
-				}
-			}
-			
+				else break;
+			}		
 		}
 		
-		for(int i = 0; i < size; i++)
+		for(int i = size-1; i >= 0; i--)
 		{
 			array[i] = newArray[i];
 		}
@@ -150,7 +118,7 @@ public class HeapSort
 			Collections.swap(list, 0, size-1);	
 		}
 		
-		for(int i = 0; i < list.size(); i++)
+		for(int i = list.size()-1; i >= 0; i--)
 		{
 			list.set(i, newList.get(i));
 		}
@@ -167,32 +135,18 @@ public class HeapSort
 			
 			while(j > 0)
 			{
-				int parentIndex;
-				
-				if(j%2 == 0)
-				{
-					parentIndex = (j - 2) / 2;
-				}
-				else
-				{
-					parentIndex = (j - 1) / 2;
-				}
+				int parentIndex = (j - (j%2 == 0 ? 2 : 1)) / 2;
 				
 				if(newList.get(j).compareTo(newList.get(parentIndex)) > 0)
 				{
 					Collections.swap(newList, parentIndex, j);
 					j = parentIndex;
-					continue;
 				}
-				else
-				{
-					break;
-				}
-			}
-			
+				else break;
+			}			
 		}
 		
-		for(int i = 0; i < size; i++)
+		for(int i = size-1; i >= 0; i--)
 		{
 			list.set(i, newList.get(i));
 		}
@@ -212,7 +166,7 @@ public class HeapSort
 			Collections.swap(list, 0, size-1);	
 		}
 		
-		for(int i = 0; i < list.size(); i++)
+		for(int i = list.size()-1; i >= 0; i--)
 		{
 			list.set(i, newList.get(i));
 		}
@@ -225,36 +179,23 @@ public class HeapSort
 		for(int i = 0; i < size; i++)
 		{
 			newList.set(i, list.get(i));
+			
 			int j = i;
 			
 			while(j > 0)
 			{
-				int parentIndex;
-				
-				if(j%2 == 0)
-				{
-					parentIndex = (j - 2) / 2;
-				}
-				else
-				{
-					parentIndex = (j - 1) / 2;
-				}
+				int parentIndex = (j - (j%2 == 0 ? 2 : 1)) / 2;
 				
 				if(comp.compare(newList.get(j), newList.get(parentIndex)) > 0)
 				{
 					Collections.swap(newList, parentIndex, j);
 					j = parentIndex;
-					continue;
 				}
-				else
-				{
-					break;
-				}
-			}
-			
+				else break;
+			}			
 		}
 		
-		for(int i = 0; i < size; i++)
+		for(int i = size-1; i >= 0; i--)
 		{
 			list.set(i, newList.get(i));
 		}
@@ -274,7 +215,7 @@ public class HeapSort
 			SortUtils.swap(array, 0, size-1);	
 		}
 		
-		for(int i = 0; i < array.length; i++)
+		for(int i = array.length-1; i >= 0; i--)
 		{
 			array[i] = newArray[i];
 		}
@@ -283,6 +224,7 @@ public class HeapSort
 	private static void createHeap(double[] array, int size)
 	{
 		double[] newArray = new double[array.length];
+		
 		for(int i = 0; i < size; i++)
 		{
 			newArray[i] = array[i];
@@ -290,32 +232,18 @@ public class HeapSort
 			
 			while(j > 0)
 			{
-				int parentIndex;
-				
-				if(j%2 == 0)
-				{
-					parentIndex = (j - 2) / 2;
-				}
-				else
-				{
-					parentIndex = (j - 1) / 2;
-				}
+				int parentIndex = (j - (j%2 == 0 ? 2 : 1)) / 2;
 				
 				if(newArray[j] > newArray[parentIndex])
 				{
 					SortUtils.swap(newArray, parentIndex, j);
 					j = parentIndex;
-					continue;
 				}
-				else
-				{
-					break;
-				}
+				else break;
 			}
-			
 		}
 		
-		for(int i = 0; i < size; i++)
+		for(int i = size-1; i >= 0; i--)
 		{
 			array[i] = newArray[i];
 		}
@@ -335,7 +263,7 @@ public class HeapSort
 			SortUtils.swap(array, 0, size-1);	
 		}
 		
-		for(int i = 0; i < array.length; i++)
+		for(int i = array.length-1; i >= 0; i--)
 		{
 			array[i] = newArray[i];
 		}
@@ -344,6 +272,7 @@ public class HeapSort
 	private static void createHeap(float[] array, int size)
 	{
 		float[] newArray = new float[array.length];
+		
 		for(int i = 0; i < size; i++)
 		{
 			newArray[i] = array[i];
@@ -351,32 +280,19 @@ public class HeapSort
 			
 			while(j > 0)
 			{
-				int parentIndex;
-				
-				if(j%2 == 0)
-				{
-					parentIndex = (j - 2) / 2;
-				}
-				else
-				{
-					parentIndex = (j - 1) / 2;
-				}
+				int parentIndex = (j - (j%2 == 0 ? 2 : 1)) / 2;
 				
 				if(newArray[j] > newArray[parentIndex])
 				{
 					SortUtils.swap(newArray, parentIndex, j);
 					j = parentIndex;
-					continue;
 				}
-				else
-				{
-					break;
-				}
+				else break;
 			}
 			
 		}
 		
-		for(int i = 0; i < size; i++)
+		for(int i = size-1; i >= 0; i--)
 		{
 			array[i] = newArray[i];
 		}
@@ -396,7 +312,7 @@ public class HeapSort
 			SortUtils.swap(array, 0, size-1);	
 		}
 		
-		for(int i = 0; i < array.length; i++)
+		for(int i = array.length-1; i >= 0; i--)
 		{
 			array[i] = newArray[i];
 		}
@@ -405,6 +321,7 @@ public class HeapSort
 	private static void createHeap(long[] array, int size)
 	{
 		long[] newArray = new long[array.length];
+		
 		for(int i = 0; i < size; i++)
 		{
 			newArray[i] = array[i];
@@ -412,32 +329,18 @@ public class HeapSort
 			
 			while(j > 0)
 			{
-				int parentIndex;
-				
-				if(j%2 == 0)
-				{
-					parentIndex = (j - 2) / 2;
-				}
-				else
-				{
-					parentIndex = (j - 1) / 2;
-				}
+				int parentIndex = (j - (j%2 == 0 ? 2 : 1)) / 2;
 				
 				if(newArray[j] > newArray[parentIndex])
 				{
 					SortUtils.swap(newArray, parentIndex, j);
 					j = parentIndex;
-					continue;
 				}
-				else
-				{
-					break;
-				}
-			}
-			
+				else break;
+			}			
 		}
 		
-		for(int i = 0; i < size; i++)
+		for(int i = size-1; i >= 0; i--)
 		{
 			array[i] = newArray[i];
 		}
@@ -457,7 +360,7 @@ public class HeapSort
 			SortUtils.swap(array, 0, size-1);	
 		}
 		
-		for(int i = 0; i < array.length; i++)
+		for(int i = array.length-1; i >= 0; i--)
 		{
 			array[i] = newArray[i];
 		}
@@ -466,6 +369,7 @@ public class HeapSort
 	private static void createHeap(int[] array, int size)
 	{
 		int[] newArray = new int[array.length];
+		
 		for(int i = 0; i < size; i++)
 		{
 			newArray[i] = array[i];
@@ -473,32 +377,18 @@ public class HeapSort
 			
 			while(j > 0)
 			{
-				int parentIndex;
-				
-				if(j%2 == 0)
-				{
-					parentIndex = (j - 2) / 2;
-				}
-				else
-				{
-					parentIndex = (j - 1) / 2;
-				}
+				int parentIndex = (j - (j%2 == 0 ? 2 : 1)) / 2;
 				
 				if(newArray[j] > newArray[parentIndex])
 				{
 					SortUtils.swap(newArray, parentIndex, j);
 					j = parentIndex;
-					continue;
 				}
-				else
-				{
-					break;
-				}
-			}
-			
+				else break;
+			}			
 		}
 		
-		for(int i = 0; i < size; i++)
+		for(int i = size-1; i >= 0; i--)
 		{
 			array[i] = newArray[i];
 		}
@@ -518,7 +408,7 @@ public class HeapSort
 			SortUtils.swap(array, 0, size-1);	
 		}
 		
-		for(int i = 0; i < array.length; i++)
+		for(int i = array.length-1; i >= 0; i--)
 		{
 			array[i] = newArray[i];
 		}
@@ -527,6 +417,7 @@ public class HeapSort
 	private static void createHeap(short[] array, int size)
 	{
 		short[] newArray = new short[array.length];
+		
 		for(int i = 0; i < size; i++)
 		{
 			newArray[i] = array[i];
@@ -534,32 +425,18 @@ public class HeapSort
 			
 			while(j > 0)
 			{
-				int parentIndex;
-				
-				if(j%2 == 0)
-				{
-					parentIndex = (j - 2) / 2;
-				}
-				else
-				{
-					parentIndex = (j - 1) / 2;
-				}
+				int parentIndex = (j - (j%2 == 0 ? 2 : 1)) / 2;
 				
 				if(newArray[j] > newArray[parentIndex])
 				{
 					SortUtils.swap(newArray, parentIndex, j);
 					j = parentIndex;
-					continue;
 				}
-				else
-				{
-					break;
-				}
-			}
-			
+				else break;
+			}		
 		}
 		
-		for(int i = 0; i < size; i++)
+		for(int i = size-1; i >= 0; i--)
 		{
 			array[i] = newArray[i];
 		}
@@ -579,7 +456,7 @@ public class HeapSort
 			SortUtils.swap(array, 0, size-1);	
 		}
 		
-		for(int i = 0; i < array.length; i++)
+		for(int i = array.length-1; i >= 0; i--)
 		{
 			array[i] = newArray[i];
 		}
@@ -588,6 +465,7 @@ public class HeapSort
 	private static void createHeap(char[] array, int size)
 	{
 		char[] newArray = new char[array.length];
+		
 		for(int i = 0; i < size; i++)
 		{
 			newArray[i] = array[i];
@@ -595,32 +473,18 @@ public class HeapSort
 			
 			while(j > 0)
 			{
-				int parentIndex;
-				
-				if(j%2 == 0)
-				{
-					parentIndex = (j - 2) / 2;
-				}
-				else
-				{
-					parentIndex = (j - 1) / 2;
-				}
+				int parentIndex = (j - (j%2 == 0 ? 2 : 1)) / 2;
 				
 				if(newArray[j] > newArray[parentIndex])
 				{
 					SortUtils.swap(newArray, parentIndex, j);
 					j = parentIndex;
-					continue;
 				}
-				else
-				{
-					break;
-				}
-			}
-			
+				else break;
+			}			
 		}
 		
-		for(int i = 0; i < size; i++)
+		for(int i = size-1; i >= 0; i--)
 		{
 			array[i] = newArray[i];
 		}

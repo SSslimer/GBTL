@@ -27,7 +27,6 @@ public class MergeSort
 	
 	private static<T extends Comparable<T>> void merge(T[] array, int left, int middle, int right)
 	{		
-		@SuppressWarnings("unchecked")
 		T[] mergedArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
 		
 		int left1 = left;
@@ -93,8 +92,7 @@ public class MergeSort
 	}
 	
 	private static<T> void merge(T[] array, int left, int middle, int right, Comparator<T> comp)
-	{		
-		@SuppressWarnings("unchecked")
+	{
 		T[] mergedArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
 		
 		int left1 = left;
@@ -292,8 +290,7 @@ public class MergeSort
 	}
 	
 	private static void merge(double[] array, int left, int middle, int right)
-	{		
-		
+	{			
 		double[] mergedArray = new double[array.length];
 		
 		int left1 = left;
@@ -360,7 +357,6 @@ public class MergeSort
 	
 	private static void merge(float[] array, int left, int middle, int right)
 	{		
-		
 		float[] mergedArray = new float[array.length];
 		
 		int left1 = left;
@@ -494,7 +490,6 @@ public class MergeSort
 	
 	private static void merge(int[] array, int left, int middle, int right)
 	{		
-		
 		int[] mergedArray = new int[array.length];
 		
 		int left1 = left;
@@ -561,7 +556,6 @@ public class MergeSort
 	
 	private static void merge(short[] array, int left, int middle, int right)
 	{		
-		
 		short[] mergedArray = new short[array.length];
 		
 		int left1 = left;
@@ -627,8 +621,7 @@ public class MergeSort
 	}
 	
 	private static void merge(char[] array, int left, int middle, int right)
-	{		
-		
+	{			
 		char[] mergedArray = new char[array.length];
 		
 		int left1 = left;

@@ -83,9 +83,9 @@ public class QuadTree<E>
 		}
 	}
 
-	public boolean add(E valueToAdd, float posX, float posY)
+	public boolean add(E valueToAdd, float x, float posY)
 	{
-		if(posX < minX || posX > maxX || posY < minY || posY > maxY) return false;
+		if(x < minX || x > maxX || posY < minY || posY > maxY) return false;
 		
 		QuadTreeCell currentCell = root;
 		int depth = 1;
@@ -94,7 +94,7 @@ public class QuadTree<E>
 		{
 			if(currentCell.upperLeft == null) break;
 			
-			if(posX >= currentCell.centerX)
+			if(x >= currentCell.centerX)
 			{
 				currentCell = (posY >= currentCell.centerY ? currentCell.upperRight : currentCell.bottomRight);
 			}
@@ -110,7 +110,7 @@ public class QuadTree<E>
 		{
 			divide(currentCell);
 			
-			if(posX >= currentCell.centerX)
+			if(x >= currentCell.centerX)
 			{
 				currentCell = (posY >= currentCell.centerY ? currentCell.upperRight : currentCell.bottomRight);
 			}
@@ -120,7 +120,7 @@ public class QuadTree<E>
 			}
 		}
 
-		currentCell.elements.add(new QuadTreeElement(valueToAdd, posX, posY));
+		currentCell.elements.add(new QuadTreeElement(valueToAdd, x, posY));
 		return true;
 	}
 
@@ -206,7 +206,7 @@ public class QuadTree<E>
 		return contains(cell.bottomLeft, element) || contains(cell.bottomRight, element) || contains(cell.upperLeft, element) || contains(cell.upperRight, element);	
 	}
 	
-	public boolean contains(E element, float posX, float posY)
+	public boolean contains(E element, float x, float y)
 	{
 		QuadTreeCell currentCell = root;
 		
@@ -214,13 +214,13 @@ public class QuadTree<E>
 		{
 			if(currentCell.upperLeft == null) break;
 			
-			if(posX >= currentCell.centerX)
+			if(x >= currentCell.centerX)
 			{
-				currentCell = (posY >= currentCell.centerY ? currentCell.upperRight : currentCell.bottomRight);
+				currentCell = (y >= currentCell.centerY ? currentCell.upperRight : currentCell.bottomRight);
 			}
 			else
 			{
-				currentCell = (posY >= currentCell.centerY ? currentCell.upperLeft : currentCell.bottomLeft);
+				currentCell = (y >= currentCell.centerY ? currentCell.upperLeft : currentCell.bottomLeft);
 			}
 		}
 		
@@ -232,6 +232,35 @@ public class QuadTree<E>
 		return false;
 	}
 	
+	public boolean remove(E element)
+	{
+		return false;
+	}
+	
+	public boolean remove(E element, float x, float y)
+	{
+		remove(root, element, x, y);
+		
+		return false;
+	}
+
+	private boolean remove(QuadTreeCell cell, E element, float x, float y)
+	{
+		if(cell.elements != null) return cell.elements.remove(element);
+
+		QuadTreeCell nextCell = cell;	
+		if(x >= nextCell.centerX)
+		{
+			nextCell = (y >= nextCell.centerY ? nextCell.upperRight : nextCell.bottomRight);
+		}
+		else
+		{
+			nextCell = (y >= nextCell.centerY ? nextCell.upperLeft : nextCell.bottomLeft);
+		}
+		
+		return remove(nextCell, element, x, y);
+	}
+
 	@Override
 	public String toString()
 	{
