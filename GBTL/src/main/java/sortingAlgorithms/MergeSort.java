@@ -33,44 +33,32 @@ public class MergeSort
 		int right1 = middle;
 		int left2 = middle + 1;
 		int right2 = right;
-		
-		int mergedArrayIndex = left;
-		
-		while(mergedArrayIndex <= right)
+			
+		for(int mergedArrayIndex = left; mergedArrayIndex <= right; mergedArrayIndex++)
 		{
 			if(left1 > right1 && left2 <= right2)
 			{
 				mergedArray[mergedArrayIndex] = array[left2];
 				left2++;
-				mergedArrayIndex++;
-				continue;
 			}
 			else if(left2 > right2 && left1 <= right1)
 			{
 				mergedArray[mergedArrayIndex] = array[left1];
 				left1++;
-				mergedArrayIndex++;
-				continue;
 			}
-
-			if(array[left2].compareTo(array[left1]) > 0)
+			else if(array[left2].compareTo(array[left1]) > 0)
 			{
 				mergedArray[mergedArrayIndex] = array[left1];
 				left1++;
-				mergedArrayIndex++;
 			}
 			else
 			{
 				mergedArray[mergedArrayIndex] = array[left2];
 				left2++;
-				mergedArrayIndex++;
 			}
 		}
 		
-		for(int i = left; i <= right; i++)
-		{
-			array[i] = mergedArray[i];
-		}
+		System.arraycopy(mergedArray, left, array, left, right-left+1);
 	}
 	
 	public static<T> void mergeSort(T[] array, Comparator<T> comp)
@@ -100,43 +88,32 @@ public class MergeSort
 		int left2 = middle + 1;
 		int right2 = right;
 		
-		int mergedArrayIndex = left;
-		
-		while(mergedArrayIndex <= right)
+
+		for(int mergedArrayIndex = left; mergedArrayIndex <= right; mergedArrayIndex++)
 		{
 			if(left1 > right1 && left2 <= right2)
 			{
 				mergedArray[mergedArrayIndex] = array[left2];
 				left2++;
-				mergedArrayIndex++;
-				continue;
 			}
 			else if(left2 > right2 && left1 <= right1)
 			{
 				mergedArray[mergedArrayIndex] = array[left1];
 				left1++;
-				mergedArrayIndex++;
-				continue;
 			}
-
-			if(comp.compare(array[left2], array[left1]) > 0)
+			else if(comp.compare(array[left2], array[left1]) > 0)
 			{
 				mergedArray[mergedArrayIndex] = array[left1];
 				left1++;
-				mergedArrayIndex++;
 			}
 			else
 			{
 				mergedArray[mergedArrayIndex] = array[left2];
 				left2++;
-				mergedArrayIndex++;
 			}
 		}
 		
-		for(int i = left; i <= right; i++)
-		{
-			array[i] = mergedArray[i];
-		}
+		System.arraycopy(mergedArray, left, array, left, right-left+1);
 	}
 	
 	public static<T extends Comparable<T>> void mergeSort(List<T> list)
@@ -166,36 +143,27 @@ public class MergeSort
 		int left2 = middle + 1;
 		int right2 = right;
 		
-		int mergedArrayIndex = left;
-		
-		while(mergedArrayIndex <= right)
+		for(int mergedArrayIndex = left; mergedArrayIndex <= right; mergedArrayIndex++)
 		{
 			if(left1 > right1 && left2 <= right2)
 			{
 				mergedList.set(mergedArrayIndex, list.get(left2));
 				left2++;
-				mergedArrayIndex++;
-				continue;
 			}
 			else if(left2 > right2 && left1 <= right1)
 			{
 				mergedList.set(mergedArrayIndex, list.get(left1));
 				left1++;
-				mergedArrayIndex++;
-				continue;
 			}
-
-			if(list.get(left2).compareTo(list.get(left1)) > 0)
+			else if(list.get(left2).compareTo(list.get(left1)) > 0)
 			{
 				mergedList.set(mergedArrayIndex, list.get(left1));
 				left1++;
-				mergedArrayIndex++;
 			}
 			else
 			{
 				mergedList.set(mergedArrayIndex, list.get(left2));
 				left2++;
-				mergedArrayIndex++;
 			}
 		}
 		
@@ -232,36 +200,27 @@ public class MergeSort
 		int left2 = middle + 1;
 		int right2 = right;
 		
-		int mergedArrayIndex = left;
-		
-		while(mergedArrayIndex <= right)
+		for(int mergedArrayIndex = left; mergedArrayIndex <= right; mergedArrayIndex++)
 		{
 			if(left1 > right1 && left2 <= right2)
 			{
 				mergedList.set(mergedArrayIndex, list.get(left2));
 				left2++;
-				mergedArrayIndex++;
-				continue;
 			}
 			else if(left2 > right2 && left1 <= right1)
 			{
 				mergedList.set(mergedArrayIndex, list.get(left1));
 				left1++;
-				mergedArrayIndex++;
-				continue;
 			}
-
-			if(comp.compare(list.get(left2), list.get(left1)) > 0)
+			else if(comp.compare(list.get(left2), list.get(left1)) > 0)
 			{
 				mergedList.set(mergedArrayIndex, list.get(left1));
 				left1++;
-				mergedArrayIndex++;
 			}
 			else
 			{
 				mergedList.set(mergedArrayIndex, list.get(left2));
 				left2++;
-				mergedArrayIndex++;
 			}
 		}
 		
@@ -298,43 +257,31 @@ public class MergeSort
 		int left2 = middle + 1;
 		int right2 = right;
 		
-		int mergedArrayIndex = left;
-		
-		while(mergedArrayIndex <= right)
+		for(int mergedArrayIndex = left; mergedArrayIndex <= right; mergedArrayIndex++)
 		{
 			if(left1 > right1 && left2 <= right2)
 			{
 				mergedArray[mergedArrayIndex] = array[left2];
 				left2++;
-				mergedArrayIndex++;
-				continue;
 			}
 			else if(left2 > right2 && left1 <= right1)
 			{
 				mergedArray[mergedArrayIndex] = array[left1];
 				left1++;
-				mergedArrayIndex++;
-				continue;
 			}
-
-			if(array[left2] > array[left1])
+			else if(array[left2] > array[left1])
 			{
 				mergedArray[mergedArrayIndex] = array[left1];
 				left1++;
-				mergedArrayIndex++;
 			}
 			else
 			{
 				mergedArray[mergedArrayIndex] = array[left2];
 				left2++;
-				mergedArrayIndex++;
 			}
 		}
 		
-		for(int i = left; i <= right; i++)
-		{
-			array[i] = mergedArray[i];
-		}
+		System.arraycopy(mergedArray, left, array, left, right-left+1);
 	}
 	
 	public static void mergeSort(float[] array)
@@ -364,43 +311,31 @@ public class MergeSort
 		int left2 = middle + 1;
 		int right2 = right;
 		
-		int mergedArrayIndex = left;
-		
-		while(mergedArrayIndex <= right)
+		for(int mergedArrayIndex = left; mergedArrayIndex <= right; mergedArrayIndex++)
 		{
 			if(left1 > right1 && left2 <= right2)
 			{
 				mergedArray[mergedArrayIndex] = array[left2];
 				left2++;
-				mergedArrayIndex++;
-				continue;
 			}
 			else if(left2 > right2 && left1 <= right1)
 			{
 				mergedArray[mergedArrayIndex] = array[left1];
 				left1++;
-				mergedArrayIndex++;
-				continue;
 			}
-
-			if(array[left2] > array[left1])
+			else if(array[left2] > array[left1])
 			{
 				mergedArray[mergedArrayIndex] = array[left1];
 				left1++;
-				mergedArrayIndex++;
 			}
 			else
 			{
 				mergedArray[mergedArrayIndex] = array[left2];
 				left2++;
-				mergedArrayIndex++;
 			}
 		}
 		
-		for(int i = left; i <= right; i++)
-		{
-			array[i] = mergedArray[i];
-		}
+		System.arraycopy(mergedArray, left, array, left, right-left+1);
 	}
 	
 	public static void mergeSort(long[] array)
@@ -422,8 +357,7 @@ public class MergeSort
 	}
 	
 	private static void merge(long[] array, int left, int middle, int right)
-	{		
-		
+	{			
 		long[] mergedArray = new long[array.length];
 		
 		int left1 = left;
@@ -431,43 +365,31 @@ public class MergeSort
 		int left2 = middle + 1;
 		int right2 = right;
 		
-		int mergedArrayIndex = left;
-		
-		while(mergedArrayIndex <= right)
+		for(int mergedArrayIndex = left; mergedArrayIndex <= right; mergedArrayIndex++)
 		{
 			if(left1 > right1 && left2 <= right2)
 			{
 				mergedArray[mergedArrayIndex] = array[left2];
 				left2++;
-				mergedArrayIndex++;
-				continue;
 			}
 			else if(left2 > right2 && left1 <= right1)
 			{
 				mergedArray[mergedArrayIndex] = array[left1];
 				left1++;
-				mergedArrayIndex++;
-				continue;
 			}
-
-			if(array[left2] > array[left1])
+			else if(array[left2] > array[left1])
 			{
 				mergedArray[mergedArrayIndex] = array[left1];
 				left1++;
-				mergedArrayIndex++;
 			}
 			else
 			{
 				mergedArray[mergedArrayIndex] = array[left2];
 				left2++;
-				mergedArrayIndex++;
 			}
 		}
 		
-		for(int i = left; i <= right; i++)
-		{
-			array[i] = mergedArray[i];
-		}
+		System.arraycopy(mergedArray, left, array, left, right-left+1);
 	}
 	
 	public static void mergeSort(int[] array)
@@ -496,44 +418,32 @@ public class MergeSort
 		int right1 = middle;
 		int left2 = middle + 1;
 		int right2 = right;
-		
-		int mergedArrayIndex = left;
-		
-		while(mergedArrayIndex <= right)
+			
+		for(int mergedArrayIndex = left; mergedArrayIndex <= right; mergedArrayIndex++)
 		{
 			if(left1 > right1 && left2 <= right2)
 			{
 				mergedArray[mergedArrayIndex] = array[left2];
 				left2++;
-				mergedArrayIndex++;
-				continue;
 			}
 			else if(left2 > right2 && left1 <= right1)
 			{
 				mergedArray[mergedArrayIndex] = array[left1];
 				left1++;
-				mergedArrayIndex++;
-				continue;
 			}
-
-			if(array[left2] > array[left1])
+			else if(array[left2] > array[left1])
 			{
 				mergedArray[mergedArrayIndex] = array[left1];
 				left1++;
-				mergedArrayIndex++;
 			}
 			else
 			{
 				mergedArray[mergedArrayIndex] = array[left2];
 				left2++;
-				mergedArrayIndex++;
 			}
 		}
 		
-		for(int i = left; i <= right; i++)
-		{
-			array[i] = mergedArray[i];
-		}
+		System.arraycopy(mergedArray, left, array, left, right-left+1);
 	}
 	
 	public static void mergeSort(short[] array)
@@ -563,43 +473,31 @@ public class MergeSort
 		int left2 = middle + 1;
 		int right2 = right;
 		
-		int mergedArrayIndex = left;
-		
-		while(mergedArrayIndex <= right)
+		for(int mergedArrayIndex = left; mergedArrayIndex <= right; mergedArrayIndex++)
 		{
 			if(left1 > right1 && left2 <= right2)
 			{
 				mergedArray[mergedArrayIndex] = array[left2];
 				left2++;
-				mergedArrayIndex++;
-				continue;
 			}
 			else if(left2 > right2 && left1 <= right1)
 			{
 				mergedArray[mergedArrayIndex] = array[left1];
 				left1++;
-				mergedArrayIndex++;
-				continue;
 			}
-
-			if(array[left2] > array[left1])
+			else if(array[left2] > array[left1])
 			{
 				mergedArray[mergedArrayIndex] = array[left1];
 				left1++;
-				mergedArrayIndex++;
 			}
 			else
 			{
 				mergedArray[mergedArrayIndex] = array[left2];
 				left2++;
-				mergedArrayIndex++;
 			}
 		}
 		
-		for(int i = left; i <= right; i++)
-		{
-			array[i] = mergedArray[i];
-		}
+		System.arraycopy(mergedArray, left, array, left, right-left+1);
 	}
 	
 	public static void mergeSort(char[] array)
@@ -629,42 +527,30 @@ public class MergeSort
 		int left2 = middle + 1;
 		int right2 = right;
 		
-		int mergedArrayIndex = left;
-		
-		while(mergedArrayIndex <= right)
+		for(int mergedArrayIndex = left; mergedArrayIndex <= right; mergedArrayIndex++)
 		{
 			if(left1 > right1 && left2 <= right2)
 			{
 				mergedArray[mergedArrayIndex] = array[left2];
 				left2++;
-				mergedArrayIndex++;
-				continue;
 			}
 			else if(left2 > right2 && left1 <= right1)
 			{
 				mergedArray[mergedArrayIndex] = array[left1];
 				left1++;
-				mergedArrayIndex++;
-				continue;
 			}
-
-			if(array[left2] > array[left1])
+			else if(array[left2] > array[left1])
 			{
 				mergedArray[mergedArrayIndex] = array[left1];
 				left1++;
-				mergedArrayIndex++;
 			}
 			else
 			{
 				mergedArray[mergedArrayIndex] = array[left2];
 				left2++;
-				mergedArrayIndex++;
 			}
 		}
 		
-		for(int i = left; i <= right; i++)
-		{
-			array[i] = mergedArray[i];
-		}
+		System.arraycopy(mergedArray, left, array, left, right-left+1);
 	}
 }

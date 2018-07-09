@@ -14,13 +14,11 @@ public class InsertionSort
 		
 		newArray[0] = array[0];
 		
-		int newArraySize = 1;
-		
-		for(int i = 1; i < array.length; i++, newArraySize++)
+		for(int i = 1; i < array.length; i++)
 		{
-			newArray[newArraySize] = array[i];
+			newArray[i] = array[i];
 			
-			for(int j = newArraySize - 1; j >= 0; j--)
+			for(int j = i - 1; j >= 0; j--)
 			{			
 				int k = j+1;
 				T x = newArray[j];
@@ -31,10 +29,7 @@ public class InsertionSort
 			}
 		}
 		
-		for(int i = array.length-1; i >= 0; i--)
-		{
-			array[i] = newArray[i];
-		}		
+		System.arraycopy(newArray, 0, array, 0, array.length);		
 	}
 	
 	public static<T> void insertionSort(T[] array, Comparator<T> comp)
@@ -42,13 +37,11 @@ public class InsertionSort
 		T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
 		newArray[0] = array[0];
 		
-		int newArraySize = 1;
-		
-		for(int i = 1; i < array.length; i++, newArraySize++)
+		for(int i = 1; i < array.length; i++)
 		{
-			newArray[newArraySize] = array[i];
+			newArray[i] = array[i];
 			
-			for(int j = newArraySize - 1; j >= 0; j--)
+			for(int j = i - 1; j >= 0; j--)
 			{			
 				int k = j+1;
 				T x = newArray[j];
@@ -59,10 +52,7 @@ public class InsertionSort
 			}
 		}
 		
-		for(int i = array.length-1; i >= 0; i--)
-		{
-			array[i] = newArray[i];
-		}		
+		System.arraycopy(newArray, 0, array, 0, array.length);
 	}
 	
 	public static<T extends Comparable<T>> void insertionSort(List<T> list)
@@ -70,13 +60,11 @@ public class InsertionSort
 		List<T> newList = new ArrayList<>(list.size());
 		newList.set(0, list.get(0));
 		
-		int newArraySize = 1;
-		
-		for(int i = 1; i < list.size(); i++, newArraySize++)
+		for(int i = 1; i < list.size(); i++)
 		{
-			newList.set(newArraySize, list.get(i));
+			newList.set(i, list.get(i));
 			
-			for(int j = newArraySize - 1; j >= 0; j--)
+			for(int j = i - 1; j >= 0; j--)
 			{			
 				int k = j+1;
 
@@ -96,13 +84,11 @@ public class InsertionSort
 		List<T> newList = new ArrayList<>(list.size());
 		newList.set(0, list.get(0));
 		
-		int newArraySize = 1;
-		
-		for(int i = 1; i < list.size(); i++, newArraySize++)
+		for(int i = 1; i < list.size(); i++)
 		{
-			newList.set(newArraySize, list.get(i));
+			newList.set(i, list.get(i));
 			
-			for(int j = newArraySize - 1; j >= 0; j--)
+			for(int j = i - 1; j >= 0; j--)
 			{			
 				int k = j+1;
 
@@ -121,14 +107,12 @@ public class InsertionSort
 	{	
 		double[] newArray = new double[array.length];
 		newArray[0] = array[0];
-		
-		int newArraySize = 1;
-		
-		for(int i = 1; i < array.length; i++, newArraySize++)
+
+		for(int i = 1; i < array.length; i++)
 		{
-			newArray[newArraySize] = array[i];
+			newArray[i] = array[i];
 			
-			for(int j = newArraySize - 1; j >= 0; j--)
+			for(int j = i - 1; j >= 0; j--)
 			{			
 				int k = j+1;
 
@@ -137,10 +121,7 @@ public class InsertionSort
 			}
 		}
 		
-		for(int i = array.length-1; i >= 0; i--)
-		{
-			array[i] = newArray[i];
-		}		
+		System.arraycopy(newArray, 0, array, 0, array.length);	
 	} 
 	
 	public static void insertionSort(float[] array)
@@ -148,13 +129,11 @@ public class InsertionSort
 		float[] newArray = new float[array.length];
 		newArray[0] = array[0];
 		
-		int newArraySize = 1;
-		
-		for(int i = 1; i < array.length; i++, newArraySize++)
+		for(int i = 1; i < array.length; i++)
 		{
-			newArray[newArraySize] = array[i];
+			newArray[i] = array[i];
 			
-			for(int j = newArraySize - 1; j >= 0; j--)
+			for(int j = i - 1; j >= 0; j--)
 			{			
 				int k = j+1;
 
@@ -163,10 +142,7 @@ public class InsertionSort
 			}
 		}
 		
-		for(int i = array.length-1; i >= 0; i--)
-		{
-			array[i] = newArray[i];
-		}		
+		System.arraycopy(newArray, 0, array, 0, array.length);	
 	}
 	
 	public static void insertionSort(long[] array)
@@ -174,13 +150,11 @@ public class InsertionSort
 		long[] newArray = new long[array.length];
 		newArray[0] = array[0];
 		
-		int newArraySize = 1;
-		
-		for(int i = 1; i < array.length; i++, newArraySize++)
+		for(int i = 1; i < array.length; i++)
 		{
-			newArray[newArraySize] = array[i];
+			newArray[i] = array[i];
 			
-			for(int j = newArraySize - 1; j >= 0; j--)
+			for(int j = i - 1; j >= 0; j--)
 			{			
 				int k = j+1;
 
@@ -189,10 +163,7 @@ public class InsertionSort
 			}
 		}
 		
-		for(int i = array.length; i >= 0; i--)
-		{
-			array[i] = newArray[i];
-		}		
+		System.arraycopy(newArray, 0, array, 0, array.length);	
 	}
 	
 	public static void insertionSort(int[] array)
@@ -200,13 +171,11 @@ public class InsertionSort
 		int[] newArray = new int[array.length];
 		newArray[0] = array[0];
 		
-		int newArraySize = 1;
-		
-		for(int i = 1; i < array.length; i++, newArraySize++)
+		for(int i = 1; i < array.length; i++)
 		{
-			newArray[newArraySize] = array[i];
+			newArray[i] = array[i];
 			
-			for(int j = newArraySize - 1; j >= 0; j--)
+			for(int j = i - 1; j >= 0; j--)
 			{			
 				int k = j+1;
 
@@ -215,10 +184,7 @@ public class InsertionSort
 			}
 		}
 		
-		for(int i = array.length-1; i >= 0; i--)
-		{
-			array[i] = newArray[i];
-		}		
+		System.arraycopy(newArray, 0, array, 0, array.length);	
 	}
 	
 	public static void insertionSort(short[] array)
@@ -226,13 +192,11 @@ public class InsertionSort
 		short[] newArray = new short[array.length];
 		newArray[0] = array[0];
 		
-		int newArraySize = 1;
-		
-		for(int i = 1; i < array.length; i++, newArraySize++)
+		for(int i = 1; i < array.length; i++)
 		{
-			newArray[newArraySize] = array[i];
+			newArray[i] = array[i];
 			
-			for(int j = newArraySize - 1; j >= 0; j--)
+			for(int j = i - 1; j >= 0; j--)
 			{			
 				int k = j+1;
 
@@ -241,10 +205,7 @@ public class InsertionSort
 			}
 		}
 		
-		for(int i = array.length-1; i >= 0; i--)
-		{
-			array[i] = newArray[i];
-		}		
+		System.arraycopy(newArray, 0, array, 0, array.length);	
 	}
 	
 	public static void insertionSort(char[] array)
@@ -252,13 +213,11 @@ public class InsertionSort
 		char[] newArray = new char[array.length];
 		newArray[0] = array[0];
 		
-		int newArraySize = 1;
-		
-		for(int i = 1; i < array.length; i++, newArraySize++)
+		for(int i = 1; i < array.length; i++)
 		{
-			newArray[newArraySize] = array[i];
+			newArray[i] = array[i];
 			
-			for(int j = newArraySize - 1; j >= 0; j--)
+			for(int j = i - 1; j >= 0; j--)
 			{			
 				int k = j+1;
 
@@ -267,11 +226,7 @@ public class InsertionSort
 			}
 		}
 		
-		for(int i = array.length; i >= 0; i--)
-		{
-			array[i] = newArray[i];
-		}		
+		System.arraycopy(newArray, 0, array, 0, array.length);	
 	}
-	
 	
 }

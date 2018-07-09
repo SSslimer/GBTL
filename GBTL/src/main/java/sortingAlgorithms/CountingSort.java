@@ -18,9 +18,7 @@ public class CountingSort
 			countingArray[array[i] - min]++;
 		}
 		
-		int index = 0;
-		
-		for(int i = 0; i < countingArray.length; i++)
+		for(int i = 0, index = 0; i < countingArray.length; i++)
 		{
 			int counter = countingArray[i];
 			
@@ -58,9 +56,7 @@ public class CountingSort
 			countingArray[array[i] - min]++;
 		}
 		
-		int index = 0;
-		
-		for(int i = 0; i < countingArray.length; i++)
+		for(int i = 0, index = 0; i < countingArray.length; i++)
 		{
 			int counter = countingArray[i];
 			
@@ -98,9 +94,7 @@ public class CountingSort
 			countingArray[array[i] - min]++;
 		}
 		
-		int index = 0;
-		
-		for(int i = 0; i < countingArray.length; i++)
+		for(int i = 0, index = 0; i < countingArray.length; i++)
 		{
 			int counter = countingArray[i];
 			
