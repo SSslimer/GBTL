@@ -1,5 +1,7 @@
 package sortingAlgorithms;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class TestUtils
@@ -109,6 +111,30 @@ public class TestUtils
 		for(int i = 0; i < arraySize; i++)
 		{
 			array[i] = (char) random.nextInt(65_535);
+		}
+		
+		return array;
+	}
+	
+	public static List<Integer> createRandomIntegerList(int size)
+	{
+		List<Integer> list = new ArrayList<>(size);
+		
+		for(int i = 0; i < size; i++)
+		{
+			list.add(random.nextInt());
+		}
+		
+		return list;
+	}
+	
+	public static Integer[] createRandomIntegerArray(int size)
+	{
+		Integer[] array = new Integer[size];
+		
+		for(int i = 0; i < size; i++)
+		{
+			array[i] = random.nextInt();
 		}
 		
 		return array;

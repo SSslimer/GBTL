@@ -136,7 +136,7 @@ public class MergeSort
 	
 	private static<T extends Comparable<T>> void merge(List<T> list, int left, int middle, int right)
 	{		
-		List<T> mergedList = new ArrayList<>(list.size());
+		List<T> mergedList = new ArrayList<>(list);
 		
 		int left1 = left;
 		int right1 = middle;
@@ -193,7 +193,7 @@ public class MergeSort
 	
 	private static<T> void merge(List<T> list, int left, int middle, int right, Comparator<T> comp)
 	{		
-		List<T> mergedList = new ArrayList<>(list.size());
+		List<T> mergedList = new ArrayList<>(list);
 		
 		int left1 = left;
 		int right1 = middle;

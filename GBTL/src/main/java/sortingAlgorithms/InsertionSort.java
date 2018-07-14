@@ -58,11 +58,11 @@ public class InsertionSort
 	public static<T extends Comparable<T>> void insertionSort(List<T> list)
 	{	
 		List<T> newList = new ArrayList<>(list.size());
-		newList.set(0, list.get(0));
+		newList.add(0, list.get(0));
 		
 		for(int i = 1; i < list.size(); i++)
 		{
-			newList.set(i, list.get(i));
+			newList.add(i, list.get(i));
 			
 			for(int j = i - 1; j >= 0; j--)
 			{			
@@ -82,11 +82,11 @@ public class InsertionSort
 	public static<T> void insertionSort(List<T> list, Comparator<T> comp)
 	{	
 		List<T> newList = new ArrayList<>(list.size());
-		newList.set(0, list.get(0));
+		newList.add(0, list.get(0));
 		
 		for(int i = 1; i < list.size(); i++)
 		{
-			newList.set(i, list.get(i));
+			newList.add(i, list.get(i));
 			
 			for(int j = i - 1; j >= 0; j--)
 			{			

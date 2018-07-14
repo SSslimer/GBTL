@@ -12,14 +12,12 @@ public class HeapSort
 	{
 		T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
 
-		int size = array.length;
-		
-		for(int i = 0; i < array.length; i++, size--)
+		for(int i = 0, j = array.length; i < array.length; i++)
 		{
-			createHeap(array, size);
-			newArray[size-1] = array[0];
-			
-			SortUtils.swap(array, 0, size-1);	
+			createHeap(array, j);
+			j--;
+			newArray[j] = array[0];				
+			SortUtils.swap(array, 0, j);	
 		}
 		
 		System.arraycopy(newArray, 0, array, 0, array.length);
@@ -53,15 +51,13 @@ public class HeapSort
 	public static <T> void heapSort(T[] array, Comparator<T> comp)
 	{
 		T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
-		
-		int size = array.length;
-		
-		for(int i = 0; i < array.length; i++, size--)
-		{
-			createHeap(array, size, comp);
-			newArray[size-1] = array[0];
 			
-			SortUtils.swap(array, 0, size-1);	
+		for(int i = 0, j = array.length; i < array.length; i++)
+		{
+			createHeap(array, j, comp);
+			j--;
+			newArray[j] = array[0];			
+			SortUtils.swap(array, 0, j);	
 		}
 		
 		System.arraycopy(newArray, 0, array, 0, array.length);
@@ -94,16 +90,14 @@ public class HeapSort
 	
 	public static <T extends Comparable<T>> void heapSort(List<T> list)
 	{	
-		List<T> newList = new ArrayList<>(list.size());
+		List<T> newList = new ArrayList<>(list);
 		
-		int size = list.size();
-		
-		for(int i = 0; i < list.size(); i++, size--)
+		for(int i = 0, j = list.size(); i < list.size(); i++)
 		{
-			createHeap(list, size);
-			newList.set(size-1, list.get(0));
-			
-			Collections.swap(list, 0, size-1);	
+			createHeap(list, j);
+			j--;
+			newList.set(j, list.get(0));			
+			Collections.swap(list, 0, j);	
 		}
 		
 		for(int i = list.size()-1; i >= 0; i--)
@@ -114,7 +108,7 @@ public class HeapSort
 	
 	private static <T extends Comparable<T>> void createHeap(List<T> list, int size)
 	{		
-		List<T> newList = new ArrayList<>(list.size());
+		List<T> newList = new ArrayList<>(list);
 		
 		for(int i = 0; i < size; i++)
 		{
@@ -142,16 +136,14 @@ public class HeapSort
 	
 	public static <T> void heapSort(List<T> list, Comparator<T> comp)
 	{	
-		List<T> newList = new ArrayList<>(list.size());
-		
-		int size = list.size();
-		
-		for(int i = 0; i < list.size(); i++, size--)
+		List<T> newList = new ArrayList<>(list);
+
+		for(int i = 0, j = list.size(); i < list.size(); i++)
 		{
-			createHeap(list, size, comp);
-			newList.set(size-1, list.get(0));
-			
-			Collections.swap(list, 0, size-1);	
+			createHeap(list, j, comp);
+			j--;
+			newList.set(j, list.get(0));		
+			Collections.swap(list, 0, j);	
 		}
 		
 		for(int i = list.size()-1; i >= 0; i--)
@@ -162,7 +154,7 @@ public class HeapSort
 	
 	private static <T> void createHeap(List<T> list, int size, Comparator<T> comp)
 	{		
-		List<T> newList = new ArrayList<>(list.size());
+		List<T> newList = new ArrayList<>(list);
 		
 		for(int i = 0; i < size; i++)
 		{
@@ -192,15 +184,13 @@ public class HeapSort
 	public static void heapSort(double[] array)
 	{
 		double[] newArray = new double[array.length];
-		
-		int size = array.length;
-		
-		for(int i = 0; i < array.length; i++, size--)
+
+		for(int i = 0, j = array.length; i < array.length; i++)
 		{
-			createHeap(array, size);
-			newArray[size-1] = array[0];
-			
-			SortUtils.swap(array, 0, size-1);	
+			createHeap(array, j);
+			j--;
+			newArray[j] = array[0];		
+			SortUtils.swap(array, 0, j);	
 		}
 		
 		System.arraycopy(newArray, 0, array, 0, array.length);
@@ -234,15 +224,13 @@ public class HeapSort
 	public static void heapSort(float[] array)
 	{
 		float[] newArray = new float[array.length];
-		
-		int size = array.length;
-		
-		for(int i = 0; i < array.length; i++, size--)
+
+		for(int i = 0, j = array.length; i < array.length; i++)
 		{
-			createHeap(array, size);
-			newArray[size-1] = array[0];
-			
-			SortUtils.swap(array, 0, size-1);	
+			createHeap(array, j);
+			j--;
+			newArray[j] = array[0];		
+			SortUtils.swap(array, 0, j);	
 		}
 		
 		System.arraycopy(newArray, 0, array, 0, array.length);
@@ -277,15 +265,13 @@ public class HeapSort
 	public static void heapSort(long[] array)
 	{
 		long[] newArray = new long[array.length];
-		
-		int size = array.length;
-		
-		for(int i = 0; i < array.length; i++, size--)
+
+		for(int i = 0, j = array.length; i < array.length; i++)
 		{
-			createHeap(array, size);
-			newArray[size-1] = array[0];
-			
-			SortUtils.swap(array, 0, size-1);	
+			createHeap(array, j);
+			j--;
+			newArray[j] = array[0];
+			SortUtils.swap(array, 0, j);	
 		}
 		
 		System.arraycopy(newArray, 0, array, 0, array.length);
@@ -319,15 +305,13 @@ public class HeapSort
 	public static void heapSort(int[] array)
 	{
 		int[] newArray = new int[array.length];
-		
-		int size = array.length;
-		
-		for(int i = 0; i < array.length; i++, size--)
+
+		for(int i = 0, j = array.length; i < array.length; i++)
 		{
-			createHeap(array, size);
-			newArray[size-1] = array[0];
-			
-			SortUtils.swap(array, 0, size-1);	
+			createHeap(array, j);
+			j--;
+			newArray[j] = array[0];		
+			SortUtils.swap(array, 0, j);	
 		}
 		
 		System.arraycopy(newArray, 0, array, 0, array.length);
@@ -361,15 +345,13 @@ public class HeapSort
 	public static void heapSort(short[] array)
 	{
 		short[] newArray = new short[array.length];
-		
-		int size = array.length;
-		
-		for(int i = 0; i < array.length; i++, size--)
+
+		for(int i = 0, j = array.length; i < array.length; i++)
 		{
-			createHeap(array, size);
-			newArray[size-1] = array[0];
-			
-			SortUtils.swap(array, 0, size-1);	
+			createHeap(array, j);
+			j--;
+			newArray[j] = array[0];			
+			SortUtils.swap(array, 0, j);	
 		}
 		
 		System.arraycopy(newArray, 0, array, 0, array.length);
@@ -403,15 +385,13 @@ public class HeapSort
 	public static void heapSort(char[] array)
 	{
 		char[] newArray = new char[array.length];
-		
-		int size = array.length;
-		
-		for(int i = 0; i < array.length; i++, size--)
+	
+		for(int i = 0, j = array.length; i < array.length; i++)
 		{
-			createHeap(array, size);
-			newArray[size-1] = array[0];
-			
-			SortUtils.swap(array, 0, size-1);	
+			createHeap(array, j);
+			j--;
+			newArray[j] = array[0];		
+			SortUtils.swap(array, 0, j);	
 		}
 		
 		System.arraycopy(newArray, 0, array, 0, array.length);
