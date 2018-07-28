@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-
-public class QuadTree<E>
+public class QuadTreePR<E>
 {
 	private final int cellCapacity;
 	private final int maxDepth;
@@ -14,7 +12,7 @@ public class QuadTree<E>
 	
 	private QuadTreeCell root;
 	
-	public QuadTree(int cellCapacity, int maxDepth, float rangeX, float rangeY)
+	public QuadTreePR(int cellCapacity, int maxDepth, float rangeX, float rangeY)
 	{
 		this.cellCapacity = cellCapacity;
 		this.maxDepth = maxDepth;
@@ -25,7 +23,7 @@ public class QuadTree<E>
 		root  = new QuadTreeCell(1, 0, 0, rangeX, rangeY);
 	}
 	
-	public QuadTree(int cellCapacity, int maxDepth, float minX, float maxX, float minY, float maxY)
+	public QuadTreePR(int cellCapacity, int maxDepth, float minX, float maxX, float minY, float maxY)
 	{
 		this.cellCapacity= cellCapacity;
 		this.maxDepth = maxDepth;
@@ -161,10 +159,8 @@ public class QuadTree<E>
 		{
 			buffer.append("depth = " + depth + "\n");
 			buffer.append("size = " + cell.elements.size() + "\n");	
-			//buffer.append("centerX = " + cell.centerX + "\n");
-			//buffer.append("centerY = " + cell.centerY + "\n");
-			//buffer.append("rangeX = " + cell.rangeX + "\n");
-			//buffer.append("rangeY = " + cell.rangeY + "\n\n");	
+			buffer.append("center = (" + cell.centerX + " " + cell.centerY + ")\n");
+			buffer.append("range = (" + cell.rangeX + " " + cell.rangeY + ")\n");	
 		}
 		else
 		{

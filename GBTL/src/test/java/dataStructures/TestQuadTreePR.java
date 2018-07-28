@@ -9,12 +9,12 @@ import java.util.Random;
 
 import org.junit.Test;
 
-public class TestQuadTree
+public class TestQuadTreePR
 {	
 	@Test
 	public void testAddAndContains()
 	{
-		QuadTree<String> tree = new QuadTree<>(2, 5, 100, 100);
+		QuadTreePR<String> tree = new QuadTreePR<>(2, 5, 100, 100);
 		tree.add("ence", 1, 1);
 		tree.add("pence", -1, 1);
 		tree.add("w", 1, -1);
@@ -36,7 +36,7 @@ public class TestQuadTree
 		assertFalse(tree.contains("NON_EXISTING_ELEMENT", 15, -70));
 		
 		final int entries = 10000;
-		QuadTree<Integer> tree2 = new QuadTree<>(10, 5, 100, 100);
+		QuadTreePR<Integer> tree2 = new QuadTreePR<>(10, 5, 100, 100);
 
 		List<Integer> values = new ArrayList<>(entries);
 		Random random = new Random();
@@ -62,7 +62,7 @@ public class TestQuadTree
 	{
 		final int ELEMENTS = 1_000_000;
 		Random random = new Random();
-		QuadTree<Integer> tree = new QuadTree<>(2, 16, 100, 100);
+		QuadTreePR<Integer> tree = new QuadTreePR<>(2, 16, 100, 100);
 		
 		Integer[] values = new Integer[ELEMENTS];
 		int[] x = new int[ELEMENTS];
