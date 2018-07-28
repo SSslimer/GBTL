@@ -11,26 +11,18 @@ public class CycleSort
 	{
 		T [] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
 		
-		for(int i = 0; i < array.length; i++)
+		for(T element : array)
 		{	
 			int pos = 0;
-			T item = array[i];
-				
-			for(int j = 0; j < array.length; j++)
+	
+			for(T element2 : array)
 			{
-				if(item.compareTo(array[j]) > 0)
-				{
-					pos++;
-				}
+				if(element.compareTo(element2) > 0) pos++;
 			}
 			
-			while(newArray[pos] != null) 
-			{
-				pos++;
-			}
+			while(newArray[pos] != null) pos++;
 			
-			newArray[pos] = array[i];
-			
+			newArray[pos] = element;			
 		}
 		
 		System.arraycopy(newArray, 0, array, 0, array.length);	
@@ -40,26 +32,18 @@ public class CycleSort
 	{
 		T [] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
 		
-		for(int i = 0; i < array.length; i++)
+		for(T element : array)
 		{	
 			int pos = 0;
-			T item = array[i];
-				
-			for(int j = 0; j < array.length; j++)
+	
+			for(T element2 : array)
 			{
-				if(comp.compare(item, array[j]) > 0)
-				{
-					pos++;
-				}
+				if(comp.compare(element, element2) > 0) pos++;
 			}
 			
-			while(newArray[pos] != null) 
-			{
-				pos++;
-			}
-			
-			newArray[pos] = array[i];
-			
+			while(newArray[pos] != null) pos++;
+		
+			newArray[pos] = element;	
 		}
 		
 		System.arraycopy(newArray, 0, array, 0, array.length);	
@@ -67,36 +51,23 @@ public class CycleSort
 	
 	public static<T extends Comparable<T>> void cycleSort(List<T> list)
 	{
-		List<T> newList = new ArrayList<>(list.size());
+		List<T> newList = new ArrayList<>(list);
+
+		boolean[] wasPlaced = new boolean[list.size()];
 		
-		for(int i = 0; i < list.size(); i++)
-		{
-			newList.add(list.get(i));
-		}
-		
-		boolean [] wasPlaced = new boolean[list.size()];
-		
-		for(int i = 0; i < list.size(); i++)
+		for(T element : list)
 		{	
 			int pos = 0;
-			T item = list.get(i);
-				
-			for(int j = 0; j < list.size(); j++)
+	
+			for(T element2 : list)
 			{
-				if(item.compareTo(list.get(j)) > 0)
-				{
-					pos++;
-				}
+				if(element.compareTo(element2) > 0) pos++;
 			}
 			
-			while(wasPlaced[pos])
-			{
-				pos++;
-			}
-			
-			newList.set(pos, list.get(i));
-			wasPlaced[pos] = true;
-			
+			while(wasPlaced[pos]) pos++;
+
+			newList.set(pos, element);
+			wasPlaced[pos] = true;	
 		}
 		
 		for(int i = list.size()-1; i >= 0; i--)
@@ -107,34 +78,22 @@ public class CycleSort
 	
 	public static<T> void cycleSort(List<T> list, Comparator<T> comp)
 	{
-		List<T> newList = new ArrayList<>(list.size());
+		List<T> newList = new ArrayList<>(list);
+
+		boolean[] wasPlaced = new boolean[list.size()];
 		
-		for(int i = 0; i < list.size(); i++)
-		{
-			newList.add(list.get(i));
-		}
-		
-		boolean [] wasPlaced = new boolean[list.size()];
-		
-		for(int i = 0; i < list.size(); i++)
+		for(T element : list)
 		{	
 			int pos = 0;
-			T item = list.get(i);
-				
-			for(int j = 0; j < list.size(); j++)
+	
+			for(T element2 : list)
 			{
-				if(comp.compare(item, list.get(j)) > 0)
-				{
-					pos++;
-				}
+				if(comp.compare(element, element2) > 0) pos++;
 			}
 			
-			while(wasPlaced[pos]) 
-			{
-				pos++;
-			}
-			
-			newList.set(pos, list.get(i));
+			while(wasPlaced[pos]) pos++;
+
+			newList.set(pos, element);
 			wasPlaced[pos] = true;
 		}
 		
@@ -146,30 +105,22 @@ public class CycleSort
 	
 	public static void cycleSort(double[] array)
 	{
-		double [] newArray = new double[array.length];
-		boolean [] wasPlaced = new boolean[array.length];
+		double[] newArray = new double[array.length];
+		boolean[] wasPlaced = new boolean[array.length];
 		
-		for(int i = 0; i < array.length; i++)
+		for(double element : array)
 		{	
 			int pos = 0;
-			double item = array[i];
-				
-			for(int j = 0; j < array.length; j++)
+	
+			for(double element2 : array)
 			{
-				if(item > array[j])
-				{
-					pos++;
-				}
+				if(element > element2) pos++;
 			}
 			
-			while(wasPlaced[pos]) 
-			{
-				pos++;
-			}
-			
-			newArray[pos] = array[i];
+			while(wasPlaced[pos]) pos++;
+
+			newArray[pos] = element;
 			wasPlaced[pos] = true;
-			
 		}
 		
 		System.arraycopy(newArray, 0, array, 0, array.length);	
@@ -177,30 +128,22 @@ public class CycleSort
 	
 	public static void cycleSort(float[] array)
 	{
-		float [] newArray = new float[array.length];
-		boolean [] wasPlaced = new boolean[array.length];
+		float[] newArray = new float[array.length];
+		boolean[] wasPlaced = new boolean[array.length];
 		
-		for(int i = 0; i < array.length; i++)
+		for(float element : array)
 		{	
 			int pos = 0;
-			float item = array[i];
-				
-			for(int j = 0; j < array.length; j++)
+	
+			for(float element2 : array)
 			{
-				if(item > array[j])
-				{
-					pos++;
-				}
+				if(element > element2) pos++;
 			}
 			
-			while(wasPlaced[pos]) 
-			{
-				pos++;
-			}
+			while(wasPlaced[pos]) pos++;
 			
-			newArray[pos] = array[i];
+			newArray[pos] = element;
 			wasPlaced[pos] = true;
-			
 		}
 		
 		System.arraycopy(newArray, 0, array, 0, array.length);	
@@ -208,30 +151,22 @@ public class CycleSort
 	
 	public static void cycleSort(long[] array)
 	{
-		long [] newArray = new long[array.length];
-		boolean [] wasPlaced = new boolean[array.length];
+		long[] newArray = new long[array.length];
+		boolean[] wasPlaced = new boolean[array.length];
 		
-		for(int i = 0; i < array.length; i++)
+		for(long element : array)
 		{	
 			int pos = 0;
-			long item = array[i];
-				
-			for(int j = 0; j < array.length; j++)
+
+			for(long element2 : array)
 			{
-				if(item > array[j])
-				{
-					pos++;
-				}
+				if(element > element2) pos++;
 			}
 			
-			while(wasPlaced[pos]) 
-			{
-				pos++;
-			}
-			
-			newArray[pos] = array[i];
+			while(wasPlaced[pos]) pos++;
+
+			newArray[pos] = element;
 			wasPlaced[pos] = true;
-			
 		}
 		
 		System.arraycopy(newArray, 0, array, 0, array.length);	
@@ -239,30 +174,22 @@ public class CycleSort
 	
 	public static void cycleSort(int[] array)
 	{
-		int [] newArray = new int[array.length];
-		boolean [] wasPlaced = new boolean[array.length];
+		int[] newArray = new int[array.length];
+		boolean[] wasPlaced = new boolean[array.length];
 		
-		for(int i = 0; i < array.length; i++)
+		for(int element : array)
 		{	
 			int pos = 0;
-			int item = array[i];
-				
-			for(int j = 0; j < array.length; j++)
+	
+			for(int element2 : array)
 			{
-				if(item > array[j])
-				{
-					pos++;
-				}
+				if(element > element2) pos++;
 			}
 			
-			while(wasPlaced[pos]) 
-			{
-				pos++;
-			}
-			
-			newArray[pos] = array[i];
-			wasPlaced[pos] = true;
-			
+			while(wasPlaced[pos]) pos++;
+
+			newArray[pos] = element;
+			wasPlaced[pos] = true;			
 		}
 		
 		System.arraycopy(newArray, 0, array, 0, array.length);	
@@ -270,30 +197,22 @@ public class CycleSort
 	
 	public static void cycleSort(short[] array)
 	{
-		short [] newArray = new short[array.length];
-		boolean [] wasPlaced = new boolean[array.length];
+		short[] newArray = new short[array.length];
+		boolean[] wasPlaced = new boolean[array.length];
 		
-		for(int i = 0; i < array.length; i++)
+		for(short element : array)
 		{	
 			int pos = 0;
-			short item = array[i];
-				
-			for(int j = 0; j < array.length; j++)
+
+			for(short element2 : array)
 			{
-				if(item > array[j])
-				{
-					pos++;
-				}
+				if(element > element2) pos++;
 			}
 			
-			while(wasPlaced[pos]) 
-			{
-				pos++;
-			}
-			
-			newArray[pos] = array[i];
-			wasPlaced[pos] = true;
-			
+			while(wasPlaced[pos]) pos++;
+
+			newArray[pos] = element;
+			wasPlaced[pos] = true;			
 		}
 		
 		System.arraycopy(newArray, 0, array, 0, array.length);	
@@ -301,30 +220,22 @@ public class CycleSort
 	
 	public static void cycleSort(char[] array)
 	{
-		char [] newArray = new char[array.length];
-		boolean [] wasPlaced = new boolean[array.length];
+		char[] newArray = new char[array.length];
+		boolean[] wasPlaced = new boolean[array.length];
 		
-		for(int i = 0; i < array.length; i++)
+		for(char element : array)
 		{	
 			int pos = 0;
-			char item = array[i];
-				
-			for(int j = 0; j < array.length; j++)
+	
+			for(char element2 : array)
 			{
-				if(item > array[j])
-				{
-					pos++;
-				}
+				if(element > element2) pos++;
 			}
 			
-			while(wasPlaced[pos]) 
-			{
-				pos++;
-			}
+			while(wasPlaced[pos]) pos++;
 			
-			newArray[pos] = array[i];
-			wasPlaced[pos] = true;
-			
+			newArray[pos] = element;
+			wasPlaced[pos] = true;			
 		}
 		
 		System.arraycopy(newArray, 0, array, 0, array.length);	
