@@ -7,14 +7,14 @@ import java.util.Random;
 
 import org.junit.Test;
 
-public class TestOctreePR
+public class TestOctreePRCube
 {
 	@Test
 	public void testAdd()
 	{
 		final int ELEMENTS = 1000;
 		Random random = new Random();
-		OctreePR<Integer> tree = new OctreePR<>(2, 16, 100, 100, 100);
+		OctreePRCube<Integer> tree = new OctreePRCube<>(2, 16, 100);
 		
 		Integer[] values = new Integer[ELEMENTS];
 		int[] x = new int[ELEMENTS];
@@ -42,7 +42,7 @@ public class TestOctreePR
 	{
 		final int ELEMENTS = 1000;
 		Random random = new Random();
-		OctreePR<Integer> tree = new OctreePR<>(2, 16, 100, 100, 100);
+		OctreePRCube<Integer> tree = new OctreePRCube<>(2, 16, 100);
 		
 		Integer[] values = new Integer[ELEMENTS];
 		int[] x = new int[ELEMENTS];

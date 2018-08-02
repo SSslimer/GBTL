@@ -1,5 +1,6 @@
 package dataStructures;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -39,7 +40,7 @@ public class QuadTreePR<E>
 		private final float centerX, centerY, rangeX, rangeY;
 		private final int depth;
 		private List<QuadTreeElement> elements = new ArrayList<>(cellCapacity);
-		private QuadTreeCell upperLeft, upperRight, bottomLeft, bottomRight;
+		private QuadTreeCell[] children;
 		
 		public QuadTreeCell(int depth, float centerX, float centerY, float rangeX, float rangeY)
 		{
@@ -82,11 +83,11 @@ public class QuadTreePR<E>
 
 			if(x >= currentCell.centerX)
 			{
-				currentCell = (y >= currentCell.centerY ? currentCell.upperRight : currentCell.bottomRight);
+				currentCell = (y >= currentCell.centerY ? currentCell.children[1] : currentCell.children[3]);
 			}
 			else
 			{
-				currentCell = (y >= currentCell.centerY ? currentCell.upperLeft : currentCell.bottomLeft);
+				currentCell = (y >= currentCell.centerY ? currentCell.children[0] : currentCell.children[2]);
 			}
 		}
 
@@ -105,11 +106,11 @@ public class QuadTreePR<E>
 
 			if(x >= currentCell.centerX)
 			{
-				currentCell = (y >= currentCell.centerY ? currentCell.upperRight : currentCell.bottomRight);
+				currentCell = (y >= currentCell.centerY ? currentCell.children[1] : currentCell.children[3]);
 			}
 			else
 			{
-				currentCell = (y >= currentCell.centerY ? currentCell.upperLeft : currentCell.bottomLeft);
+				currentCell = (y >= currentCell.centerY ? currentCell.children[0] : currentCell.children[2]);
 			}
 			
 			addRecursive(currentCell, depth+1, valueToAdd, x, y);
@@ -126,23 +127,24 @@ public class QuadTreePR<E>
 		float upperCenterY = cellToDivide.centerY+halfRangeY;
 		float bottomCenterY = cellToDivide.centerY-halfRangeY;		
 		int childsDepth = cellToDivide.depth + 1;
-		
-		cellToDivide.upperLeft = new QuadTreeCell(childsDepth, leftCenterX, upperCenterY, halfRangeX, halfRangeY);
-		cellToDivide.upperRight = new QuadTreeCell(childsDepth, rightCenterX, upperCenterY, halfRangeX, halfRangeY);
-		cellToDivide.bottomLeft = new QuadTreeCell(childsDepth, leftCenterX, bottomCenterY, halfRangeX, halfRangeY);
-		cellToDivide.bottomRight = new QuadTreeCell(childsDepth, rightCenterX, bottomCenterY, halfRangeX, halfRangeY);
+
+		cellToDivide.children = (QuadTreePR<E>.QuadTreeCell[]) Array.newInstance(QuadTreeCell.class, 4);
+		cellToDivide.children[0] = new QuadTreeCell(childsDepth, leftCenterX, upperCenterY, halfRangeX, halfRangeY);
+		cellToDivide.children[1] = new QuadTreeCell(childsDepth, rightCenterX, upperCenterY, halfRangeX, halfRangeY);
+		cellToDivide.children[2] = new QuadTreeCell(childsDepth, leftCenterX, bottomCenterY, halfRangeX, halfRangeY);
+		cellToDivide.children[3] = new QuadTreeCell(childsDepth, rightCenterX, bottomCenterY, halfRangeX, halfRangeY);
 		
 		for(QuadTreeElement element : cellToDivide.elements)
 		{
 			if(element.x >= cellToDivide.centerX)
 			{
-				if(element.y >= cellToDivide.centerY) cellToDivide.upperRight.elements.add(element);
-				else cellToDivide.bottomRight.elements.add(element);
+				if(element.y >= cellToDivide.centerY) cellToDivide.children[1].elements.add(element);
+				else cellToDivide.children[3].elements.add(element);
 			}
 			else
 			{
-				if(element.y >= cellToDivide.centerY) cellToDivide.upperLeft.elements.add(element);
-				else cellToDivide.bottomLeft.elements.add(element);
+				if(element.y >= cellToDivide.centerY) cellToDivide.children[0].elements.add(element);
+				else cellToDivide.children[2].elements.add(element);
 			}
 		}
 		
@@ -155,7 +157,7 @@ public class QuadTreePR<E>
 		
 		StringBuffer buffer = new StringBuffer();
 
-		if(cell.upperLeft == null)
+		if(cell.children == null)
 		{
 			buffer.append("depth = " + depth + "\n");
 			buffer.append("size = " + cell.elements.size() + "\n");	
@@ -164,10 +166,10 @@ public class QuadTreePR<E>
 		}
 		else
 		{
-			buffer.append(getStringRepresentation(cell.upperLeft, depth+1));
-			buffer.append(getStringRepresentation(cell.upperRight, depth+1));
-			buffer.append(getStringRepresentation(cell.bottomLeft, depth+1));
-			buffer.append(getStringRepresentation(cell.bottomRight, depth+1));	
+			buffer.append(getStringRepresentation(cell.children[0], depth+1));
+			buffer.append(getStringRepresentation(cell.children[1], depth+1));
+			buffer.append(getStringRepresentation(cell.children[2], depth+1));
+			buffer.append(getStringRepresentation(cell.children[3], depth+1));	
 		}
 		
 		return buffer.toString();
@@ -175,7 +177,7 @@ public class QuadTreePR<E>
 	
 	private boolean isEmptyLeaf(QuadTreeCell cell)
 	{
-		return (cell.bottomLeft == null && cell.elements.isEmpty());
+		return (cell.children == null && cell.elements.isEmpty());
 	}
 	
 	public boolean contains(E element)
@@ -185,17 +187,22 @@ public class QuadTreePR<E>
 	
 	private boolean contains(QuadTreeCell cell, E element)
 	{
-		if(cell.bottomLeft == null)
+		if(cell.children == null)
 		{
 			for(QuadTreeElement e : cell.elements)
 			{
 				if(element.equals(e.value)) return true;
 			}
-			
-			return false;
+		}
+		else
+		{
+			for(QuadTreeCell child : cell.children)
+			{
+				if(contains(child, element)) return true;
+			}
 		}
 		
-		return contains(cell.bottomLeft, element) || contains(cell.bottomRight, element) || contains(cell.upperLeft, element) || contains(cell.upperRight, element);	
+		return false;
 	}
 	
 	public boolean contains(E element, float x, float y)
@@ -216,15 +223,15 @@ public class QuadTreePR<E>
 		
 		while(true)
 		{
-			if(currentCell.upperLeft == null) break;
+			if(currentCell.children == null) break;
 			
 			if(x >= currentCell.centerX)
 			{
-				currentCell = (y >= currentCell.centerY ? currentCell.upperRight : currentCell.bottomRight);
+				currentCell = (y >= currentCell.centerY ? currentCell.children[1] : currentCell.children[3]);
 			}
 			else
 			{
-				currentCell = (y >= currentCell.centerY ? currentCell.upperLeft : currentCell.bottomLeft);
+				currentCell = (y >= currentCell.centerY ? currentCell.children[0] : currentCell.children[2]);
 			}
 		}
 		
@@ -232,7 +239,33 @@ public class QuadTreePR<E>
 	}
 	
 	public boolean remove(E element)
+	{	
+		return remove(element, root);
+	}
+	
+	public boolean remove(E element, QuadTreeCell cell)
 	{
+		if(cell.children == null)
+		{
+			Iterator<QuadTreeElement> iterator = cell.elements.iterator();
+			
+			while(iterator.hasNext())
+			{
+				if(iterator.next().value.equals(element))
+				{
+					iterator.remove();
+					return true;
+				}
+			}
+		}
+		else
+		{
+			for(QuadTreeCell child : cell.children)
+			{
+				if(remove(element, child)) return true;
+			}
+		}
+		
 		return false;
 	}
 	
@@ -259,23 +292,26 @@ public class QuadTreePR<E>
 
 	private void mergeCellsIfNeeded(QuadTreeCell cell)
 	{
-		if(cell.bottomLeft.elements == null || cell.bottomRight.elements == null ||
-		   cell.upperLeft.elements == null || cell.upperRight.elements == null) return;
-		
-		int size = cell.bottomLeft.elements.size() + cell.bottomRight.elements.size() +
-				   cell.upperLeft.elements.size() + cell.upperRight.elements.size();	
+		for(QuadTreeCell child : cell.children)
+		{
+			if(child.elements == null) return;
+		}
+
+		int size = 0;
+		for(QuadTreeCell child : cell.children)
+		{
+			size += child.elements.size();
+		}
+
 		if(size != cellCapacity) return;
 		
 		cell.elements = new ArrayList<>(cellCapacity);
-		cell.elements.addAll(cell.bottomLeft.elements);
-		cell.elements.addAll(cell.bottomRight.elements);
-		cell.elements.addAll(cell.upperLeft.elements);
-		cell.elements.addAll(cell.upperRight.elements);
+		for(QuadTreeCell child : cell.children)
+		{
+			cell.elements.addAll(child.elements);
+		}
 		
-		cell.bottomLeft = null;
-		cell.bottomRight = null;
-		cell.upperLeft = null;
-		cell.upperRight = null;
+		cell.children = null;
 	}
 	
 	private boolean removeElementFromCell(QuadTreeCell cell, E element)

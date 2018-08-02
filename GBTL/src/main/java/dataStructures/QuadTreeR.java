@@ -11,10 +11,10 @@ public class QuadTreeR
 	public QuadTreeR(int maxDepth, int width, int height, BelongCriterion criterion)
 	{
 		this.maxDepth = maxDepth;
-		this.minX = -width/2;
 		this.maxX = width/2;
-		this.minY = -height/2;
-		this.maxY = height/2;	
+		this.minX = -maxX;
+		this.maxY = height/2;
+		this.minY = -maxY;
 		this.root  = new QuadTreeCell(1, 0, 0, width, height);
 		this.criterion = criterion;
 	}
@@ -35,7 +35,7 @@ public class QuadTreeR
 		private final int centerX, centerY, rangeX, rangeY;
 		private final int depth;
 		private boolean value;
-		private QuadTreeCell upperLeft, upperRight, bottomLeft, bottomRight;
+		private QuadTreeCell[] childs;
 		
 		public QuadTreeCell(int depth, int centerX, int centerY, int rangeX, int rangeY)
 		{
@@ -68,18 +68,12 @@ public class QuadTreeR
 	{
 		return checkCell(root);
 	}
-	
-	public static long a = 0;
-	public static long b = 0;
-	
 	private boolean checkCell(QuadTreeCell cell)
 	{
-		b++;
 		switch(criterion.belongsTo(cell))
 		{
 			case INSIDE:
 				cell.value = true;
-				a++;
 				return true;
 				
 			case OUTSIDE:
@@ -90,15 +84,14 @@ public class QuadTreeR
 				if(cell.depth == maxDepth)
 				{
 					cell.value = true;
-					a++;
 					return true;
 				}
 							
 				divide(cell);
-				checkCell(cell.bottomLeft);				
-				checkCell(cell.bottomRight);
-				checkCell(cell.upperLeft);
-				checkCell(cell.upperRight);				
+				checkCell(cell.childs[0]);
+				checkCell(cell.childs[1]);
+				checkCell(cell.childs[2]);
+				checkCell(cell.childs[3]);
 				return true;
 			default:
 				return false;
@@ -115,10 +108,11 @@ public class QuadTreeR
 		int bottomCenterY = cell.centerY-halfRangeY;		
 		int childsDepth = cell.depth + 1;
 		
-		cell.upperLeft = new QuadTreeCell(childsDepth, leftCenterX, upperCenterY, halfRangeX, halfRangeY);
-		cell.upperRight = new QuadTreeCell(childsDepth, rightCenterX, upperCenterY, halfRangeX, halfRangeY);
-		cell.bottomLeft = new QuadTreeCell(childsDepth, leftCenterX, bottomCenterY, halfRangeX, halfRangeY);
-		cell.bottomRight = new QuadTreeCell(childsDepth, rightCenterX, bottomCenterY, halfRangeX, halfRangeY);
+		cell.childs = new QuadTreeCell[4];
+		cell.childs[0] = new QuadTreeCell(childsDepth, leftCenterX, upperCenterY, halfRangeX, halfRangeY);
+		cell.childs[1] = new QuadTreeCell(childsDepth, rightCenterX, upperCenterY, halfRangeX, halfRangeY);
+		cell.childs[2] = new QuadTreeCell(childsDepth, leftCenterX, bottomCenterY, halfRangeX, halfRangeY);
+		cell.childs[3] = new QuadTreeCell(childsDepth, rightCenterX, bottomCenterY, halfRangeX, halfRangeY);
 	}
 	
 	public boolean getValue(int x, int y)
@@ -130,15 +124,15 @@ public class QuadTreeR
 	
 	private boolean getValue(QuadTreeCell cell, int x, int y)
 	{
-		if(cell.bottomLeft == null) return cell.value;
+		if(cell.childs == null) return cell.value;
 
 		if(x > cell.centerX) 
 		{
-			return getValue((y > cell.centerY ? cell.upperRight : cell.bottomRight), x, y);
+			return getValue((y > cell.centerY ? cell.childs[1] : cell.childs[3]), x, y);
 		}
 		else
 		{
-			return getValue((y > cell.centerY ? cell.upperLeft : cell.bottomLeft), x, y);
+			return getValue((y > cell.centerY ? cell.childs[0] : cell.childs[2]), x, y);
 		}
 	}
 	
@@ -159,18 +153,18 @@ public class QuadTreeR
 		if(cell == null) return "";
 		StringBuffer buffer = new StringBuffer();
 
-		if(cell.upperLeft == null && cell.value)
+		if(cell.childs == null && cell.value)
 		{
 			buffer.append("depth = " + cell.depth + " ");
 			buffer.append("center = (" + cell.centerX + " " + cell.centerY + ") ");
 			buffer.append("range = (" + cell.rangeX + " " + cell.rangeY + ") \n");	
 		}
 		else
-		{
-			buffer.append(getStringRepresentation(cell.upperLeft));
-			buffer.append(getStringRepresentation(cell.upperRight));
-			buffer.append(getStringRepresentation(cell.bottomLeft));
-			buffer.append(getStringRepresentation(cell.bottomRight));	
+		{	
+			buffer.append(getStringRepresentation(cell.childs[0]));
+			buffer.append(getStringRepresentation(cell.childs[1]));
+			buffer.append(getStringRepresentation(cell.childs[2]));
+			buffer.append(getStringRepresentation(cell.childs[3]));	
 		}
 		
 		return buffer.toString();

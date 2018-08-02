@@ -53,8 +53,7 @@ public class TestQuadTreePR
 		{
 			Integer value = values.get(i);
 			assertTrue(tree2.contains(value));
-		}
-		
+		}		
 	}
 	
 	@Test
