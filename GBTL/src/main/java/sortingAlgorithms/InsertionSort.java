@@ -10,6 +10,7 @@ public class InsertionSort
 {
 	public static<T extends Comparable<T>> void insertionSort(T[] array)
 	{	
+		@SuppressWarnings("unchecked")
 		T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
 		
 		newArray[0] = array[0];
@@ -34,6 +35,7 @@ public class InsertionSort
 	
 	public static<T> void insertionSort(T[] array, Comparator<T> comp)
 	{	
+		@SuppressWarnings("unchecked")
 		T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
 		newArray[0] = array[0];
 		

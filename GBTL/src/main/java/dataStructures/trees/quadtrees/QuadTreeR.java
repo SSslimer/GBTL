@@ -1,4 +1,6 @@
-package dataStructures;
+package dataStructures.trees.quadtrees;
+
+import utils.Covering;
 
 public class QuadTreeR
 {
@@ -51,14 +53,7 @@ public class QuadTreeR
 			return posX >= centerX - rangeX && posX <= centerX + rangeX && posY >= centerY - rangeY && posY <= centerY + rangeY;
 		}
 	}
-	
-	public enum Covering
-	{
-		INSIDE,
-		PARTIAL,
-		OUTSIDE
-	}
-	
+
 	public interface BelongCriterion
 	{
 		public abstract Covering belongsTo(QuadTreeCell cell);

@@ -7,6 +7,8 @@ import java.util.Random;
 
 import org.junit.Test;
 
+import dataStructures.trees.octrees.OctreePRCube;
+
 public class TestOctreePRCube
 {
 	@Test

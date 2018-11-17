@@ -10,6 +10,7 @@ public class HeapSort
 {
 	public static <T extends Comparable<T>> void heapSort(T[] array)
 	{
+		@SuppressWarnings("unchecked")
 		T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
 
 		for(int i = 0, j = array.length; i < array.length; i++)
@@ -25,6 +26,7 @@ public class HeapSort
 	
 	private static <T extends Comparable<T>> void createHeap(T[] array, int size)
 	{
+		@SuppressWarnings("unchecked")
 		T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
 		
 		for(int i = 0; i < size; i++)
@@ -50,6 +52,7 @@ public class HeapSort
 	
 	public static <T> void heapSort(T[] array, Comparator<T> comp)
 	{
+		@SuppressWarnings("unchecked")
 		T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
 			
 		for(int i = 0, j = array.length; i < array.length; i++)
@@ -65,6 +68,7 @@ public class HeapSort
 	
 	private static <T> void createHeap(T[] array, int size, Comparator<T> comp)
 	{
+		@SuppressWarnings("unchecked")
 		T[] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
 		
 		for(int i = 0; i < size; i++)

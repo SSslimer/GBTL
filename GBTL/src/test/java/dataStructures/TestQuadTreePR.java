@@ -9,6 +9,8 @@ import java.util.Random;
 
 import org.junit.Test;
 
+import dataStructures.trees.quadtrees.QuadTreePR;
+
 public class TestQuadTreePR
 {	
 	@Test

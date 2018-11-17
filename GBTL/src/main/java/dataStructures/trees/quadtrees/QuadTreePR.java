@@ -1,4 +1,4 @@
-package dataStructures;
+package dataStructures.trees.quadtrees;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -118,6 +118,7 @@ public class QuadTreePR<E>
 		else currentCell.elements.add(new QuadTreeElement(valueToAdd, x, y));
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void divideCell(QuadTreeCell cellToDivide)
 	{
 		float halfRangeX = cellToDivide.rangeX/2;

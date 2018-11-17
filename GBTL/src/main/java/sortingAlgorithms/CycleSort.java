@@ -7,8 +7,10 @@ import java.util.List;
 
 public class CycleSort 
 {
+
 	public static<T extends Comparable<T>> void cycleSort(T[] array)
 	{
+		@SuppressWarnings("unchecked")
 		T [] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
 		
 		for(T element : array)
@@ -30,6 +32,7 @@ public class CycleSort
 	
 	public static<T> void cycleSort(T[] array, Comparator<T> comp)
 	{
+		@SuppressWarnings("unchecked")
 		T [] newArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
 		
 		for(T element : array)

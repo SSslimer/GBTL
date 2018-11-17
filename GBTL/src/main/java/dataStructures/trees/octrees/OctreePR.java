@@ -1,52 +1,64 @@
-package dataStructures;
+package dataStructures.trees.octrees;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
-public class OctreePRCube<E>
+import dataStructures.trees.Criterion;
+import dataStructures.trees.TreeCell;
+
+public class OctreePR<E>
 {
 	private final int cellCapacity;
 	private final int maxDepth;
-	private final long min, max;
+	private final long minX, maxX, minY, maxY, minZ, maxZ;
 	
 	private OctreeCell root;
 	
-	public OctreePRCube(int cellCapacity, int maxDepth, long range)
+	public OctreePR(int cellCapacity, int maxDepth, long rangeX, long rangeY, long rangeZ)
 	{
 		this.cellCapacity = cellCapacity;
 		this.maxDepth = maxDepth;
-		this.min = -range;
-		this.max = range;	
-		this.root  = new OctreeCell(1, 0, 0, 0, range);
+		this.minX = -rangeX;
+		this.maxX = rangeX;
+		this.minY = -rangeY;
+		this.maxY = rangeY;
+		this.minZ = -rangeZ;
+		this.maxZ = rangeZ;	
+		root  = new OctreeCell(1, 0, 0, 0, rangeX, rangeY, rangeZ);
 	}
 	
-	public OctreePRCube(int cellCapacity, int maxDepth, long min, long max)
+	public OctreePR(int cellCapacity, int maxDepth, long minX, long maxX, long minY, long maxY, long minZ, long maxZ)
 	{
 		this.cellCapacity= cellCapacity;
 		this.maxDepth = maxDepth;
-		this.min = min;
-		this.max = max;
-		this.root  = new OctreeCell(1, (max-min)/2, (max-min)/2, (max-min)/2, max-min);
+		this.minX = minX;
+		this.maxX = maxX;
+		this.minY = minY;
+		this.maxY = maxY;
+		this.minZ = minZ;
+		this.maxZ = maxZ;
+		root  = new OctreeCell(1, (maxX-minX)/2, (maxY-minY)/2, (maxZ-minZ)/2, maxX-minX, maxY-minY, maxZ-minZ);
 	}
 
-	public class OctreeCell
+	public class OctreeCell implements TreeCell<E>
 	{
-		private final long centerX, centerY, centerZ, range;
+		private final long centerX, centerY, centerZ, rangeX, rangeY, rangeZ;
 		private final int depth;
-		private List<OctreeElement> elements = new ArrayList<>(cellCapacity);
+		private List<OctreeElement<E>> elements = new ArrayList<>(cellCapacity);
 		private OctreeCell[] children;
 		
-		public OctreeCell(int depth, long centerX, long centerY, long centerZ, long range)
+		public OctreeCell(int depth, long centerX, long centerY, long centerZ, long rangeX, long rangeY, long rangeZ)
 		{
 			this.depth = depth;
 			this.centerX = centerX;
 			this.centerY = centerY;
 			this.centerZ = centerZ;
-			this.range = range;
+			this.rangeX = rangeX;
+			this.rangeY = rangeY;
+			this.rangeZ = rangeZ;
 		}
 		
 		public long[] getCenterPos()
@@ -55,85 +67,46 @@ public class OctreePRCube<E>
 			return pos;
 		}
 		
-		public long getRange()
+		public long getRangeX()
 		{
-			return range;
+			return rangeX;
 		}
-		
-		public long[] getCornerPos(int i)
+
+		public long getRangeY()
 		{
-			long[] pos = new long[3];
-			switch(i)
-			{
-				case 0:
-					pos[0] = centerX+range;
-					pos[1] = centerY+range;
-					pos[2] = centerZ+range;
-					break;
-				case 1:
-					pos[0] = centerX+range;
-					pos[1] = centerY+range;
-					pos[2] = centerZ-range;
-					break;
-				case 2:
-					pos[0] = centerX+range;
-					pos[1] = centerY-range;
-					pos[2] = centerZ+range;
-					break;
-				case 3:
-					pos[0] = centerX+range;
-					pos[1] = centerY-range;
-					pos[2] = centerZ-range;
-					break;
-				case 4:
-					pos[0] = centerX-range;
-					pos[1] = centerY+range;
-					pos[2] = centerZ+range;
-					break;
-				case 5:
-					pos[0] = centerX-range;
-					pos[1] = centerY+range;
-					pos[2] = centerZ-range;
-					break;
-				case 6:
-					pos[0] = centerX-range;
-					pos[1] = centerY-range;
-					pos[2] = centerZ+range;
-					break;
-				case 7:
-					pos[0] = centerX-range;
-					pos[1] = centerY-range;
-					pos[2] = centerZ-range;
-					break;
-			}
+			return rangeY;
+		}
+
+		public long getRangeZ()
+		{
+			return rangeZ;
+		}
+
+		public long[] getCornerPos()
+		{
+			long centerXP = centerX+rangeX;
+			long centerXM = centerX-rangeX;
+			long centerYP = centerY+rangeY;
+			long centerYM = centerY-rangeY;
+			long centerZP = centerZ+rangeZ;
+			long centerZM = centerZ-rangeZ;
+			
+			long[] pos = {centerXP, centerYP, centerZP,														
+						  centerXP, centerYP, centerZM,
+						  centerXP, centerYM, centerZP,
+						  centerXP, centerYM, centerZM,
+						  centerXM, centerYP, centerZP,
+						  centerXM, centerYP, centerZM,
+						  centerXM, centerYM, centerZP,
+						  centerXM, centerYM, centerZM};
 			
 			return pos;
-		}
-	}
-	
-	private class OctreeElement
-	{
-		private final E value;
-		private final long x, y, z;
-		
-		public OctreeElement(E value, long x, long y, long z)
-		{
-			this.value = value;
-			this.x = x;
-			this.y = y;
-			this.z = z;
-		}
-		
-		@Override
-		public String toString()
-		{
-			return "x="+x+" y="+y+" "+z+" "+value.toString();
 		}
 	}
 
 	public boolean add(E valueToAdd, long x, long y, long z)
 	{
-		if(x < min || x > max || y < min || y > max || z < min || z > max) return false;
+		if(x < minX || x > maxX || y < minY || y > maxY || z < minZ || z > maxZ) return false;
 		
 		OctreeCell currentCell = getCell(x, y, z);
 		
@@ -203,32 +176,35 @@ public class OctreePRCube<E>
 
 			addRecursive(currentCell, depth+1, valueToAdd, x, y, z);
 		}		
-		else currentCell.elements.add(new OctreeElement(valueToAdd, x, y, z));
+		else currentCell.elements.add(new OctreeElement<E>(valueToAdd, x, y, z));
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void divideCell(OctreeCell cellToDivide)
 	{
-		long halfRange = cellToDivide.range/2;
-		long leftCenterX = cellToDivide.centerX-halfRange;
-		long rightCenterX = cellToDivide.centerX+halfRange;
-		long upperCenterY = cellToDivide.centerY+halfRange;
-		long bottomCenterY = cellToDivide.centerY-halfRange;
-		long frontCenterZ = cellToDivide.centerZ+halfRange;
-		long rearCenterZ = cellToDivide.centerZ-halfRange;	
+		long halfRangeX = cellToDivide.rangeX/2;
+		long halfRangeY = cellToDivide.rangeY/2;
+		long halfRangeZ = cellToDivide.rangeZ/2;
+		long leftCenterX = cellToDivide.centerX-halfRangeX;
+		long rightCenterX = cellToDivide.centerX+halfRangeX;
+		long upperCenterY = cellToDivide.centerY+halfRangeY;
+		long bottomCenterY = cellToDivide.centerY-halfRangeY;
+		long frontCenterZ = cellToDivide.centerZ+halfRangeZ;
+		long rearCenterZ = cellToDivide.centerZ-halfRangeZ;	
 		int childsDepth = cellToDivide.depth + 1;
 		
-		cellToDivide.children = (OctreePRCube<E>.OctreeCell[]) Array.newInstance(OctreeCell.class, 8);
-		cellToDivide.children[0] = new OctreeCell(childsDepth, rightCenterX, upperCenterY, frontCenterZ, halfRange);
-		cellToDivide.children[1] = new OctreeCell(childsDepth, rightCenterX, upperCenterY, rearCenterZ, halfRange);
-		cellToDivide.children[2] = new OctreeCell(childsDepth, rightCenterX, bottomCenterY, frontCenterZ, halfRange);
-		cellToDivide.children[3] = new OctreeCell(childsDepth, rightCenterX, bottomCenterY, rearCenterZ, halfRange);
+		cellToDivide.children = (OctreePR<E>.OctreeCell[]) Array.newInstance(OctreeCell.class, 8);
+		cellToDivide.children[0] = new OctreeCell(childsDepth, rightCenterX, upperCenterY, frontCenterZ, halfRangeX, halfRangeY, halfRangeZ);
+		cellToDivide.children[1] = new OctreeCell(childsDepth, rightCenterX, upperCenterY, rearCenterZ, halfRangeX, halfRangeY, halfRangeZ);
+		cellToDivide.children[2] = new OctreeCell(childsDepth, rightCenterX, bottomCenterY, frontCenterZ, halfRangeX, halfRangeY, halfRangeZ);
+		cellToDivide.children[3] = new OctreeCell(childsDepth, rightCenterX, bottomCenterY, rearCenterZ, halfRangeX, halfRangeY, halfRangeZ);
 		
-		cellToDivide.children[4] = new OctreeCell(childsDepth, leftCenterX, upperCenterY, frontCenterZ, halfRange);
-		cellToDivide.children[5] = new OctreeCell(childsDepth, leftCenterX, upperCenterY, rearCenterZ, halfRange);
-		cellToDivide.children[6] = new OctreeCell(childsDepth, leftCenterX, bottomCenterY, frontCenterZ, halfRange);
-		cellToDivide.children[7] = new OctreeCell(childsDepth, leftCenterX, bottomCenterY, rearCenterZ, halfRange);
+		cellToDivide.children[4] = new OctreeCell(childsDepth, leftCenterX, upperCenterY, frontCenterZ, halfRangeX, halfRangeY, halfRangeZ);
+		cellToDivide.children[5] = new OctreeCell(childsDepth, leftCenterX, upperCenterY, rearCenterZ, halfRangeX, halfRangeY, halfRangeZ);
+		cellToDivide.children[6] = new OctreeCell(childsDepth, leftCenterX, bottomCenterY, frontCenterZ, halfRangeX, halfRangeY, halfRangeZ);
+		cellToDivide.children[7] = new OctreeCell(childsDepth, leftCenterX, bottomCenterY, rearCenterZ, halfRangeX, halfRangeY, halfRangeZ);
 		
-		for(OctreeElement element : cellToDivide.elements)
+		for(OctreeElement<E> element : cellToDivide.elements)
 		{
 			if(element.x >= cellToDivide.centerX)
 			{
@@ -268,7 +244,7 @@ public class OctreePRCube<E>
 			buffer.append("depth = " + depth + "\n");
 			buffer.append("size = " + cell.elements.size() + "\n");	
 			buffer.append("center = ("+cell.centerX+" "+cell.centerY+" "+cell.centerZ+")\n");
-			buffer.append("range = ("+cell.range+" "+cell.range+" "+cell.range+")\n");	
+			buffer.append("range = ("+cell.rangeX+" "+cell.rangeY+" "+cell.rangeZ+")\n");	
 		}
 		else
 		{
@@ -295,18 +271,19 @@ public class OctreePRCube<E>
 	{
 		if(cell.children == null)
 		{
-			for(OctreeElement e : cell.elements)
+			for(OctreeElement<E> e : cell.elements)
 			{
-				if(element.equals(e.value)) return true;
+				if(e.value.equals(element)) return true;
 			}
-			
-			return false;
 		}
-		
-		for(OctreeCell child : cell.children)
+		else
 		{
-			if(contains(child, element)) return true;
+			for(OctreeCell child : cell.children)
+			{
+				if(contains(child, element)) return true;
+			}
 		}
+
 		return false;
 	}
 	
@@ -314,7 +291,7 @@ public class OctreePRCube<E>
 	{
 		OctreeCell cell = getCell(x, y, z);
 		
-		for(OctreeElement e : cell.elements)
+		for(OctreeElement<E> e : cell.elements)
 		{
 			if(element.equals(e.value)) return true;
 		}
@@ -366,7 +343,7 @@ public class OctreePRCube<E>
 	{
 		if(cell.children == null)
 		{
-			Iterator<OctreeElement> iterator = cell.elements.iterator();
+			Iterator<OctreeElement<E>> iterator = cell.elements.iterator();
 			
 			while(iterator.hasNext())
 			{
@@ -443,12 +420,12 @@ public class OctreePRCube<E>
 		List<E> elements = new ArrayList<E>();
 
 		switch(criterion.belongs(cell))
-		{
+		{			
 			case OUTSIDE: return Collections.emptyList();		
-			case INSIDE:				
+			case INSIDE:		
 				if(cell.children == null)
 				{
-					for(OctreeElement e : cell.elements)
+					for(OctreeElement<E> e : cell.elements)
 					{
 						elements.add(e.value);
 					}
@@ -457,6 +434,7 @@ public class OctreePRCube<E>
 				{
 					for(OctreeCell c : cell.children)
 					{
+						if((c.elements == null || c.elements.isEmpty()) && c.children == null) continue;
 						elements.addAll(getElements(c));
 					}
 				}
@@ -466,7 +444,7 @@ public class OctreePRCube<E>
 				if(cell.children == null)
 				{
 					/** TODO, add second criterion */
-					for(OctreeElement e : cell.elements)
+					for(OctreeElement<E> e : cell.elements)
 					{
 						elements.add(e.value);
 					}
@@ -475,11 +453,11 @@ public class OctreePRCube<E>
 				{
 					for(OctreeCell c : cell.children)
 					{
+						if((c.elements == null || c.elements.isEmpty()) && c.children == null) continue;
 						elements.addAll(getElements(criterion, c));
 					}
 				}
 				return elements;
-				
 			default: return Collections.emptyList();
 		}	
 	}
@@ -490,7 +468,7 @@ public class OctreePRCube<E>
 		
 		if(cell.children == null)
 		{
-			for(OctreeElement e : cell.elements)
+			for(OctreeElement<E> e : cell.elements)
 			{
 				elements.add(e.value);
 			}	
@@ -499,89 +477,17 @@ public class OctreePRCube<E>
 		{
 			for(OctreeCell c : cell.children)
 			{
+				if((c.elements == null || c.elements.isEmpty()) && c.children == null) continue;
 				elements.addAll(getElements(c));
 			}
 		}
 
 		return elements;
 	}
-	
-	public List<E> getElementsNew(Criterion criterion)
-	{
-		List<OctreeCell> cells = new LinkedList<OctreeCell>();
-		
-		int elementsCount = getElementsNew(criterion, root, cells);
-		
-		List<E> elements = new ArrayList<>(elementsCount);
-		
-		for(OctreeCell cell : cells)
-		{
-			for(OctreeElement oe : cell.elements)
-			{
-				elements.add(oe.value);
-			}		
-		}
-		
-		return elements;
-	}
-	
-	private int getElementsNew(Criterion criterion, OctreeCell cell, List<OctreeCell> cells)
-	{
-		switch(criterion.belongs(cell))
-		{		
-			case OUTSIDE: return 0;		
-			case INSIDE: return getElementsNew(cell, cells);				
-			case PARTIAL: 
-				if(cell.children == null)
-				{
-					/** TODO, add second criterion */
-					cells.add(cell);
-					return cell.elements.size();
-				}
-				else
-				{
-					int count = 0;
-					for(OctreeCell c : cell.children)
-					{
-						count += getElementsNew(criterion, c, cells);
-					}
-					return count;
-				}				
-			default: return 0;
-		}	
-	}
-	
-	private int getElementsNew(OctreeCell cell, List<OctreeCell> cells)
-	{
-		if(cell.children == null)
-		{
-			cells.add(cell);
-			return cell.elements.size();
-		}
-		else
-		{
-			int count = 0;
-			for(OctreeCell c : cell.children)
-			{
-				count += getElementsNew(c, cells);
-			}
-			return count;
-		}	
-	}
-	
-	public enum Covering
-	{
-		PARTIAL, INSIDE, OUTSIDE
-	}
-	
-	public interface Criterion
-	{
-		public abstract Covering belongs(OctreePRCube.OctreeCell cell);
-	}
-	
+
 	private boolean removeElementFromCell(OctreeCell cell, E element)
 	{
-		Iterator<OctreeElement> iterator = cell.elements.iterator();
+		Iterator<OctreeElement<E>> iterator = cell.elements.iterator();
 			
 		while(iterator.hasNext())
 		{
@@ -601,12 +507,12 @@ public class OctreePRCube<E>
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("QuadTree String representation:\n");
 		buffer.append("Cell capacity = " + cellCapacity + "\n");
-		buffer.append("Min x = " + min + "\n");
-		buffer.append("Max x = " + max + "\n");
-		buffer.append("Min y = " + min + "\n");
-		buffer.append("Max y = " + max + "\n");
-		buffer.append("Min z = " + min + "\n");
-		buffer.append("Max z = " + max + "\n\n");
+		buffer.append("Min x = " + minX + "\n");
+		buffer.append("Max x = " + maxX + "\n");
+		buffer.append("Min y = " + minY + "\n");
+		buffer.append("Max y = " + maxY + "\n");
+		buffer.append("Min z = " + minZ + "\n");
+		buffer.append("Max z = " + maxZ + "\n\n");
 		buffer.append(getStringRepresentation(root, 1));
 		
 		return buffer.toString();

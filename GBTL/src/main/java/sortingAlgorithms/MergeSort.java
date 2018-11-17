@@ -27,6 +27,7 @@ public class MergeSort
 	
 	private static<T extends Comparable<T>> void merge(T[] array, int left, int middle, int right)
 	{		
+		@SuppressWarnings("unchecked")
 		T[] mergedArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
 		
 		int left1 = left;
@@ -81,6 +82,7 @@ public class MergeSort
 	
 	private static<T> void merge(T[] array, int left, int middle, int right, Comparator<T> comp)
 	{
+		@SuppressWarnings("unchecked")
 		T[] mergedArray = (T[]) Array.newInstance(array.getClass().getComponentType(), array.length);
 		
 		int left1 = left;
